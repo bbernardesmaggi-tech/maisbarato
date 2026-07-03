@@ -1,0 +1,1470 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaisBarato — Melhores Ofertas do Mercado Livre Hoje</title>
+<meta name="description" content="Encontre as melhores ofertas e produtos mais vendidos do Mercado Livre com frete grátis e parcelamento. Eletrônicos, computadores, áudio, smartwatch, beleza e muito mais.">
+<meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
+<meta name="theme-color" content="#FFE600">
+<link rel="canonical" href="https://maisbarato-one.vercel.app/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="MaisBarato — Melhores Ofertas do Mercado Livre">
+<meta property="og:description" content="Os melhores produtos do Mercado Livre com frete grátis e menores preços.">
+<meta property="og:url" content="https://maisbarato-one.vercel.app/">
+<meta property="og:image" content="https://maisbarato-one.vercel.app/og-image.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://maisbarato-one.vercel.app/og-image.png">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --y:#FFE600;--b:#3483FA;--bd:#2968C8;--g:#00A650;--gl:#E8F8EF;
+  --bg:#F5F5F5;--s:#fff;--t:#1A1A1A;--tm:#4A4A4A;--mu:#888;--br:#E0E0E0;
+  --r:12px;--sh:0 2px 8px rgba(0,0,0,.08);--shh:0 6px 20px rgba(0,0,0,.14)
+}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.5;min-height:100vh}
+
+/* ── HEADER ── */
+header{background:var(--y);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.14)}
+.hdr{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px;padding:0 1.5rem}
+.logo{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--t);flex-shrink:0;text-decoration:none}
+.logo span{color:var(--b)}
+.sw{flex:1;display:flex;background:#fff;border-radius:8px;overflow:hidden;border:2.5px solid transparent;transition:border .15s;max-width:520px}
+.sw:focus-within{border-color:var(--b)}
+.sw input{flex:1;border:none;outline:none;padding:.5rem .85rem;font-size:14px;color:var(--t);background:transparent}
+.sw button{background:var(--b);border:none;color:#fff;padding:0 1.1rem;cursor:pointer;font-size:16px;transition:background .15s;flex-shrink:0}
+.sw button:hover{background:var(--bd)}
+.pill{background:var(--b);color:#fff;font-size:11px;font-weight:700;padding:5px 12px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+
+/* ── TABS ── */
+.tabs-wrap{background:#fff;border-bottom:2px solid var(--br);position:sticky;top:60px;z-index:100;box-shadow:0 2px 4px rgba(0,0,0,.06)}
+.tabs{max-width:1200px;margin:0 auto;display:flex;overflow-x:auto;scrollbar-width:none;padding:0 1rem;gap:2px}
+.tabs::-webkit-scrollbar{display:none}
+.tab{background:transparent;border:none;border-bottom:3px solid transparent;padding:.85rem 1rem;font-size:13px;font-weight:500;color:var(--mu);cursor:pointer;white-space:nowrap;transition:all .18s;flex-shrink:0;margin-bottom:-2px}
+.tab:hover{color:var(--b);border-bottom-color:rgba(52,131,250,.3)}
+.tab.active{color:var(--b);border-bottom-color:var(--b);font-weight:700}
+
+/* ── PUBLI ── */
+.pub{background:#fff8e1;border-bottom:1px solid #ffe082;padding:.5rem 1.5rem;font-size:12px;color:#5a4000;text-align:center}
+
+/* ── SEARCH RESULTS ── */
+.sr-wrap{max-width:1200px;margin:0 auto;padding:1.5rem 1.5rem .5rem}
+.sr-bar{display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;flex-wrap:wrap;gap:.5rem}
+.sr-title{font-size:15px;color:var(--tm);font-weight:500}
+.sr-close{background:transparent;border:1px solid var(--br);border-radius:6px;padding:5px 12px;font-size:12px;cursor:pointer;color:var(--mu);transition:all .15s}
+.sr-close:hover{background:var(--bg);color:var(--t)}
+.sr-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem;margin-bottom:1.5rem}
+.sr-loading{text-align:center;padding:3rem;color:var(--mu)}
+.spin{width:36px;height:36px;border:3px solid var(--br);border-top-color:var(--b);border-radius:50%;animation:spin .7s linear infinite;margin:0 auto .75rem}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* ── MAIN ── */
+.main{max-width:1200px;margin:0 auto;padding:1.5rem}
+
+/* ── PANEL ── */
+.panel{animation:fadeIn .2s ease}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
+.panel-header h2{font-size:20px;font-weight:700;color:var(--t)}
+.ver-mais{font-size:13px;color:var(--b);font-weight:600;text-decoration:none;padding:6px 14px;border:1.5px solid var(--b);border-radius:20px;transition:all .15s}
+.ver-mais:hover{background:var(--b);color:#fff}
+
+/* ── GRID ── */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+
+/* ── CARD ── */
+.card{background:var(--s);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s}
+.card:hover{box-shadow:var(--shh);transform:translateY(-4px)}
+.card-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;flex:1}
+.cimg{position:relative;aspect-ratio:1/1;background:#f8f8f8;overflow:hidden;display:flex;align-items:center;justify-content:center}
+.cimg img{width:100%;height:100%;object-fit:contain;padding:10px;transition:transform .22s}
+.card:hover .cimg img{transform:scale(1.06)}
+.bship{position:absolute;top:8px;left:8px;background:var(--g);color:#fff;font-size:10px;font-weight:700;padding:3px 8px;border-radius:4px;z-index:1}
+.b12x{position:absolute;top:8px;right:8px;background:#ddeeff;color:var(--bd);font-size:10px;font-weight:700;padding:3px 7px;border-radius:4px;z-index:1}
+.cbody{padding:.9rem;display:flex;flex-direction:column;gap:6px;flex:1}
+.ctitle{font-size:13px;line-height:1.4;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:36px;color:var(--t)}
+.prices{margin-top:2px}
+.oldp{font-size:11px;color:var(--mu);text-decoration:line-through;display:block}
+.prow{display:flex;align-items:baseline;gap:6px;flex-wrap:wrap;margin-top:2px}
+.price{font-size:19px;font-weight:800;letter-spacing:-.5px;color:var(--t)}
+.bdsc{font-size:11px;font-weight:700;color:var(--g);background:var(--gl);padding:2px 7px;border-radius:4px}
+.inst{font-size:11px;color:var(--g);font-weight:500;margin-top:2px}
+.btn-cp{width:100%;background:transparent;color:var(--g);text-align:center;padding:9px;border-radius:0 0 var(--r) var(--r);font-size:12px;font-weight:600;cursor:pointer;border:none;border-top:1px solid var(--gl);transition:background .15s;background:var(--gl)}
+.btn-cp:hover{background:#c8f0d8}
+
+/* ── DISCLAIMER ── */
+.disc{margin-top:2.5rem;padding:1.1rem 1.4rem;background:#fff;border-radius:var(--r);border:1px solid var(--br);font-size:12px;color:var(--mu);line-height:1.7}
+.disc strong{color:var(--tm)}
+
+/* ── FOOTER ── */
+footer{text-align:center;padding:2.5rem 1rem 1.5rem;font-size:12px;color:var(--mu);border-top:1px solid var(--br);margin-top:1.5rem}
+
+/* ── TOAST ── */
+.toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1A1A1A;color:#fff;padding:11px 22px;border-radius:24px;font-size:13px;font-weight:500;opacity:0;transition:all .25s;z-index:9999;pointer-events:none;white-space:nowrap}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+/* ── MOBILE ── */
+@media(max-width:640px){
+  .pill{display:none}
+  .grid,.sr-grid{grid-template-columns:repeat(2,1fr);gap:.65rem}
+  .price{font-size:15px}
+  .main{padding:1rem}
+  .sr-wrap{padding:1rem}
+  .tab{padding:.7rem .75rem;font-size:12px}
+}
+</style>
+</head>
+<body>
+
+<header>
+  <div class="hdr">
+    <a class="logo" href="/">Mais<span>Barato</span></a>
+    <div class="sw">
+      <input type="text" id="si" placeholder="Buscar produto no Mercado Livre..." aria-label="Buscar produto">
+      <button onclick="doSearch()" aria-label="Buscar">&#128269;</button>
+    </div>
+    <div class="pill">🤝 Afiliado ML</div>
+  </div>
+</header>
+
+<div class="tabs-wrap">
+  <div class="tabs" role="tablist" aria-label="Categorias de produtos">
+    <button class="tab active" id="tab-eletronicos" role="tab" aria-controls="panel-eletronicos" data-target="eletronicos" onclick="switchTab(this)">📱 Eletrônicos</button>
+<button class="tab" id="tab-computadores" role="tab" aria-controls="panel-computadores" data-target="computadores" onclick="switchTab(this)">💻 Computadores</button>
+<button class="tab" id="tab-audio" role="tab" aria-controls="panel-audio" data-target="audio" onclick="switchTab(this)">🎧 Áudio</button>
+<button class="tab" id="tab-smartwatch" role="tab" aria-controls="panel-smartwatch" data-target="smartwatch" onclick="switchTab(this)">⌚ Smartwatch</button>
+<button class="tab" id="tab-casa" role="tab" aria-controls="panel-casa" data-target="casa" onclick="switchTab(this)">🏠 Casa</button>
+<button class="tab" id="tab-cameras" role="tab" aria-controls="panel-cameras" data-target="cameras" onclick="switchTab(this)">📷 Câmeras</button>
+<button class="tab" id="tab-beleza" role="tab" aria-controls="panel-beleza" data-target="beleza" onclick="switchTab(this)">🌸 Beleza</button>
+<button class="tab" id="tab-tenis" role="tab" aria-controls="panel-tenis" data-target="tenis" onclick="switchTab(this)">👟 Tênis</button>
+<button class="tab" id="tab-livros" role="tab" aria-controls="panel-livros" data-target="livros" onclick="switchTab(this)">📚 Livros</button>
+<button class="tab" id="tab-brinquedos" role="tab" aria-controls="panel-brinquedos" data-target="brinquedos" onclick="switchTab(this)">🧸 Brinquedos</button>
+
+  </div>
+</div>
+
+<div class="pub">
+  ⚠️ <strong>Conteúdo publicitário</strong> — Esta página contém links de afiliado do Mercado Livre. Ao comprar, recebo comissão sem custo adicional para você. <strong>#publi #ad</strong>
+</div>
+
+<!-- RESULTADOS DE BUSCA (oculto por padrão) -->
+<div id="sr-section" style="display:none">
+  <div class="sr-wrap">
+    <div class="sr-bar">
+      <span class="sr-title" id="sr-title">Buscando...</span>
+      <button class="sr-close" onclick="closeSearch()">✕ Fechar busca</button>
+    </div>
+    <div id="sr-grid" class="sr-grid">
+      <div class="sr-loading"><div class="spin"></div><p>Buscando no Mercado Livre...</p></div>
+    </div>
+  </div>
+</div>
+
+<main class="main" id="main-content">
+  
+<div class="panel" id="panel-eletronicos" role="tabpanel" aria-labelledby="tab-eletronicos" hidden>
+  <div class="panel-header">
+    <h2>📱 Eletrônicos</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=smartphone&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/samsung-galaxy-a55-5g-256gb-8gb-ram-azul-aborigene/p/MLB30441600?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_617325-MLA71783088053_092023-O.jpg"
+           alt="Samsung Galaxy A55 5G 256GB 8GB RAM Azul Aborígene"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_617325-MLA71783088053_092023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Samsung Galaxy A55 5G 256GB 8GB RAM Azul Aborígene</p>
+      <div class="prices">
+        <s class='oldp'>R$ 2.499,00</s>
+        <div class="prow">
+          <span class="price">R$ 1.899,90</span>
+          <span class='bdsc'>-24%</span>
+        </div>
+        <p class='inst'>12x de R$ 158,33 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/samsung-galaxy-a55-5g-256gb-8gb-ram-azul-aborigene/p/MLB30441600?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/apple-iphone-15-128-gb-preto/p/MLB27993069?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_773243-MLA71533688452_092023-O.jpg"
+           alt="iPhone 15 128GB Apple Preto Desbloqueado"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_773243-MLA71533688452_092023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">iPhone 15 128GB Apple Preto Desbloqueado</p>
+      <div class="prices">
+        <s class='oldp'>R$ 4.799,00</s>
+        <div class="prow">
+          <span class="price">R$ 4.199,00</span>
+          <span class='bdsc'>-13%</span>
+        </div>
+        <p class='inst'>12x de R$ 349,92 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/apple-iphone-15-128-gb-preto/p/MLB27993069?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/motorola-moto-g85/p/MLB35040748?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_847655-MLA75501642743_042024-O.jpg"
+           alt="Motorola Moto G85 256GB 12GB RAM 5G Grafite"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_847655-MLA75501642743_042024-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Motorola Moto G85 256GB 12GB RAM 5G Grafite</p>
+      <div class="prices">
+        <s class='oldp'>R$ 1.899,00</s>
+        <div class="prow">
+          <span class="price">R$ 1.499,00</span>
+          <span class='bdsc'>-21%</span>
+        </div>
+        <p class='inst'>12x de R$ 124,92 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/motorola-moto-g85/p/MLB35040748?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/samsung-galaxy-a35-5g/p/MLB29988148?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_757484-MLA74659053098_022024-O.jpg"
+           alt="Samsung Galaxy A35 5G 128GB 6GB RAM Azul"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_757484-MLA74659053098_022024-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Samsung Galaxy A35 5G 128GB 6GB RAM Azul</p>
+      <div class="prices">
+        <s class='oldp'>R$ 1.699,00</s>
+        <div class="prow">
+          <span class="price">R$ 1.299,00</span>
+          <span class='bdsc'>-24%</span>
+        </div>
+        <p class='inst'>12x de R$ 108,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/samsung-galaxy-a35-5g/p/MLB29988148?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/xiaomi-redmi-note-13/p/MLB30041853?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_715684-MLA74234889695_012024-O.jpg"
+           alt="Xiaomi Redmi Note 13 256GB 8GB RAM 4G Global"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_715684-MLA74234889695_012024-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Xiaomi Redmi Note 13 256GB 8GB RAM 4G Global</p>
+      <div class="prices">
+        <s class='oldp'>R$ 1.399,00</s>
+        <div class="prow">
+          <span class="price">R$ 1.099,00</span>
+          <span class='bdsc'>-21%</span>
+        </div>
+        <p class='inst'>12x de R$ 91,58 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/xiaomi-redmi-note-13/p/MLB30041853?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/tablet-samsung-galaxy-tab-a9/p/MLB28748014?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_871068-MLA74062283617_012024-O.jpg"
+           alt="Tablet Samsung Galaxy Tab A9+ 64GB Wi-Fi Grafite"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_871068-MLA74062283617_012024-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Tablet Samsung Galaxy Tab A9+ 64GB Wi-Fi Grafite</p>
+      <div class="prices">
+        <s class='oldp'>R$ 1.799,00</s>
+        <div class="prow">
+          <span class="price">R$ 1.399,00</span>
+          <span class='bdsc'>-22%</span>
+        </div>
+        <p class='inst'>12x de R$ 116,58 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/tablet-samsung-galaxy-tab-a9/p/MLB28748014?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-computadores" role="tabpanel" aria-labelledby="tab-computadores" hidden>
+  <div class="panel-header">
+    <h2>💻 Computadores</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=notebook&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/notebook-samsung-book-intel-core-i5/p/MLB20740816?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_881668-MLA50264836185_052022-O.jpg"
+           alt="Notebook Samsung Book Intel Core i5 8GB 256GB SSD 15.6&quot;"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_881668-MLA50264836185_052022-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Notebook Samsung Book Intel Core i5 8GB 256GB SSD 15.6&quot;</p>
+      <div class="prices">
+        <s class='oldp'>R$ 3.199,00</s>
+        <div class="prow">
+          <span class="price">R$ 2.499,00</span>
+          <span class='bdsc'>-22%</span>
+        </div>
+        <p class='inst'>12x de R$ 208,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/notebook-samsung-book-intel-core-i5/p/MLB20740816?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/notebook-lenovo-ideapad-1i/p/MLB26267498?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_613245-MLA71568527783_092023-O.jpg"
+           alt="Notebook Lenovo IdeaPad 1i Core i5 12a Ger 8GB 512GB SSD"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_613245-MLA71568527783_092023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Notebook Lenovo IdeaPad 1i Core i5 12a Ger 8GB 512GB SSD</p>
+      <div class="prices">
+        <s class='oldp'>R$ 3.499,00</s>
+        <div class="prow">
+          <span class="price">R$ 2.799,00</span>
+          <span class='bdsc'>-20%</span>
+        </div>
+        <p class='inst'>12x de R$ 233,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/notebook-lenovo-ideapad-1i/p/MLB26267498?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/notebook-dell-inspiron-15/p/MLB19878923?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_740071-MLA52073580384_102022-O.jpg"
+           alt="Notebook Dell Inspiron 15 Core i5 8GB 256GB SSD Full HD"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_740071-MLA52073580384_102022-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Notebook Dell Inspiron 15 Core i5 8GB 256GB SSD Full HD</p>
+      <div class="prices">
+        <s class='oldp'>R$ 3.999,00</s>
+        <div class="prow">
+          <span class="price">R$ 3.199,00</span>
+          <span class='bdsc'>-20%</span>
+        </div>
+        <p class='inst'>12x de R$ 266,58 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/notebook-dell-inspiron-15/p/MLB19878923?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/notebook-acer-aspire-3/p/MLB21063543?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_765395-MLA50059052476_052022-O.jpg"
+           alt="Notebook Acer Aspire 3 Core i3 4GB 256GB SSD 15.6&quot; W11"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_765395-MLA50059052476_052022-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Notebook Acer Aspire 3 Core i3 4GB 256GB SSD 15.6&quot; W11</p>
+      <div class="prices">
+        <s class='oldp'>R$ 2.499,00</s>
+        <div class="prow">
+          <span class="price">R$ 1.999,00</span>
+          <span class='bdsc'>-20%</span>
+        </div>
+        <p class='inst'>12x de R$ 166,58 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/notebook-acer-aspire-3/p/MLB21063543?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-audio" role="tabpanel" aria-labelledby="tab-audio" hidden>
+  <div class="panel-header">
+    <h2>🎧 Áudio</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=fone bluetooth&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/fone-jbl-tune-510bt/p/MLB20706223?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_798781-MLA48152928798_112021-O.jpg"
+           alt="Fone JBL Tune 510BT Bluetooth Over Ear Preto"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_798781-MLA48152928798_112021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Fone JBL Tune 510BT Bluetooth Over Ear Preto</p>
+      <div class="prices">
+        <s class='oldp'>R$ 399,00</s>
+        <div class="prow">
+          <span class="price">R$ 249,90</span>
+          <span class='bdsc'>-37%</span>
+        </div>
+        <p class='inst'>12x de R$ 20,82 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/fone-jbl-tune-510bt/p/MLB20706223?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/sony-wh-1000xm5/p/MLB22889694?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_713901-MLA53220574866_012023-O.jpg"
+           alt="Sony WH-1000XM5 Noise Cancelling Bluetooth Preto"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_713901-MLA53220574866_012023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Sony WH-1000XM5 Noise Cancelling Bluetooth Preto</p>
+      <div class="prices">
+        <s class='oldp'>R$ 2.199,00</s>
+        <div class="prow">
+          <span class="price">R$ 1.599,00</span>
+          <span class='bdsc'>-27%</span>
+        </div>
+        <p class='inst'>12x de R$ 133,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/sony-wh-1000xm5/p/MLB22889694?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/caixa-de-som-jbl-go-4/p/MLB30049716?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_853849-MLA73191236695_122023-O.jpg"
+           alt="Caixa de Som JBL Go 4 Bluetooth Portátil à Prova d&#39;água"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_853849-MLA73191236695_122023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Caixa de Som JBL Go 4 Bluetooth Portátil à Prova d&#39;água</p>
+      <div class="prices">
+        <s class='oldp'>R$ 399,00</s>
+        <div class="prow">
+          <span class="price">R$ 299,00</span>
+          <span class='bdsc'>-25%</span>
+        </div>
+        <p class='inst'>12x de R$ 24,92 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/caixa-de-som-jbl-go-4/p/MLB30049716?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/samsung-galaxy-buds-fe/p/MLB26553685?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_769065-MLA72411909427_102023-O.jpg"
+           alt="Samsung Galaxy Buds FE True Wireless Grafite"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_769065-MLA72411909427_102023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Samsung Galaxy Buds FE True Wireless Grafite</p>
+      <div class="prices">
+        <s class='oldp'>R$ 599,00</s>
+        <div class="prow">
+          <span class="price">R$ 399,00</span>
+          <span class='bdsc'>-33%</span>
+        </div>
+        <p class='inst'>12x de R$ 33,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/samsung-galaxy-buds-fe/p/MLB26553685?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/jbl-charge-5/p/MLB19282226?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_895876-MLA48152823098_112021-O.jpg"
+           alt="Caixa JBL Charge 5 Bluetooth 40W à Prova d&#39;água"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_895876-MLA48152823098_112021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Caixa JBL Charge 5 Bluetooth 40W à Prova d&#39;água</p>
+      <div class="prices">
+        <s class='oldp'>R$ 999,00</s>
+        <div class="prow">
+          <span class="price">R$ 799,00</span>
+          <span class='bdsc'>-20%</span>
+        </div>
+        <p class='inst'>12x de R$ 66,58 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/jbl-charge-5/p/MLB19282226?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-smartwatch" role="tabpanel" aria-labelledby="tab-smartwatch" hidden>
+  <div class="panel-header">
+    <h2>⌚ Smartwatch</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=smartwatch&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/samsung-galaxy-watch6-40mm/p/MLB24651038?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_870094-MLA71569017463_092023-O.jpg"
+           alt="Samsung Galaxy Watch6 40mm Bluetooth Grafite"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_870094-MLA71569017463_092023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Samsung Galaxy Watch6 40mm Bluetooth Grafite</p>
+      <div class="prices">
+        <s class='oldp'>R$ 1.399,00</s>
+        <div class="prow">
+          <span class="price">R$ 999,00</span>
+          <span class='bdsc'>-29%</span>
+        </div>
+        <p class='inst'>12x de R$ 83,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/samsung-galaxy-watch6-40mm/p/MLB24651038?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/apple-watch-se-2/p/MLB23937725?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_660965-MLA61232476367_042023-O.jpg"
+           alt="Apple Watch SE 2ª Geração 40mm GPS Preto"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_660965-MLA61232476367_042023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Apple Watch SE 2ª Geração 40mm GPS Preto</p>
+      <div class="prices">
+        <s class='oldp'>R$ 2.699,00</s>
+        <div class="prow">
+          <span class="price">R$ 2.199,00</span>
+          <span class='bdsc'>-19%</span>
+        </div>
+        <p class='inst'>12x de R$ 183,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/apple-watch-se-2/p/MLB23937725?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/xiaomi-redmi-watch-4/p/MLB30569724?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_667394-MLA75393760012_032024-O.jpg"
+           alt="Xiaomi Redmi Watch 4 AMOLED GPS Cinza 2GB"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_667394-MLA75393760012_032024-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Xiaomi Redmi Watch 4 AMOLED GPS Cinza 2GB</p>
+      <div class="prices">
+        <s class='oldp'>R$ 699,00</s>
+        <div class="prow">
+          <span class="price">R$ 499,00</span>
+          <span class='bdsc'>-29%</span>
+        </div>
+        <p class='inst'>12x de R$ 41,58 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/xiaomi-redmi-watch-4/p/MLB30569724?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/garmin-forerunner-55/p/MLB19624019?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_613539-MLA47819178244_102021-O.jpg"
+           alt="Garmin Forerunner 55 GPS Corrida Natação Branco"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_613539-MLA47819178244_102021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Garmin Forerunner 55 GPS Corrida Natação Branco</p>
+      <div class="prices">
+        <s class='oldp'>R$ 1.299,00</s>
+        <div class="prow">
+          <span class="price">R$ 999,00</span>
+          <span class='bdsc'>-23%</span>
+        </div>
+        <p class='inst'>12x de R$ 83,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/garmin-forerunner-55/p/MLB19624019?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-casa" role="tabpanel" aria-labelledby="tab-casa" hidden>
+  <div class="panel-header">
+    <h2>🏠 Casa</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=ar condicionado&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/ar-condicionado-samsung-windfree-12000/p/MLB17795529?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_711488-MLA44940598870_022021-O.jpg"
+           alt="Ar Condicionado Split Samsung WindFree 12000 BTUs Inverter"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_711488-MLA44940598870_022021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Ar Condicionado Split Samsung WindFree 12000 BTUs Inverter</p>
+      <div class="prices">
+        <s class='oldp'>R$ 3.499,00</s>
+        <div class="prow">
+          <span class="price">R$ 2.699,00</span>
+          <span class='bdsc'>-23%</span>
+        </div>
+        <p class='inst'>12x de R$ 224,92 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/ar-condicionado-samsung-windfree-12000/p/MLB17795529?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/xiaomi-robot-vacuum-e10c/p/MLB26816026?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_793455-MLA71783131453_092023-O.jpg"
+           alt="Aspirador Robô Xiaomi Robot Vacuum E10C Wi-Fi Mapeamento"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_793455-MLA71783131453_092023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Aspirador Robô Xiaomi Robot Vacuum E10C Wi-Fi Mapeamento</p>
+      <div class="prices">
+        <s class='oldp'>R$ 1.299,00</s>
+        <div class="prow">
+          <span class="price">R$ 899,00</span>
+          <span class='bdsc'>-31%</span>
+        </div>
+        <p class='inst'>12x de R$ 74,92 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/xiaomi-robot-vacuum-e10c/p/MLB26816026?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/air-fryer-mondial-4l/p/MLB16867026?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_784901-MLA44576703014_012021-O.jpg"
+           alt="Fritadeira Elétrica Air Fryer Mondial 4L Preto 1500W"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_784901-MLA44576703014_012021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Fritadeira Elétrica Air Fryer Mondial 4L Preto 1500W</p>
+      <div class="prices">
+        <s class='oldp'>R$ 399,90</s>
+        <div class="prow">
+          <span class="price">R$ 279,90</span>
+          <span class='bdsc'>-30%</span>
+        </div>
+        <p class='inst'>12x de R$ 23,32 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/air-fryer-mondial-4l/p/MLB16867026?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/lampada-inteligente-positivo/p/MLB17082049?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_631819-MLA43063671024_082020-O.jpg"
+           alt="Lâmpada LED Inteligente Wi-Fi RGB 10W Positivo Smart"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_631819-MLA43063671024_082020-O.jpg';this.onerror=null"
+           width="220" height="220">
+      
+      
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Lâmpada LED Inteligente Wi-Fi RGB 10W Positivo Smart</p>
+      <div class="prices">
+        <s class='oldp'>R$ 79,90</s>
+        <div class="prow">
+          <span class="price">R$ 49,90</span>
+          <span class='bdsc'>-38%</span>
+        </div>
+        
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/lampada-inteligente-positivo/p/MLB17082049?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-cameras" role="tabpanel" aria-labelledby="tab-cameras" hidden>
+  <div class="panel-header">
+    <h2>📷 Câmeras</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=camera&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/gopro-hero-12-black/p/MLB27648734?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_686591-MLA72660196671_112023-O.jpg"
+           alt="GoPro Hero 12 Black 5.3K À Prova d&#39;água + Acessórios"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_686591-MLA72660196671_112023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">GoPro Hero 12 Black 5.3K À Prova d&#39;água + Acessórios</p>
+      <div class="prices">
+        <s class='oldp'>R$ 2.799,00</s>
+        <div class="prow">
+          <span class="price">R$ 2.199,00</span>
+          <span class='bdsc'>-21%</span>
+        </div>
+        <p class='inst'>12x de R$ 183,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/gopro-hero-12-black/p/MLB27648734?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/canon-eos-rebel-sl3/p/MLB15641226?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_848621-MLA42268774774_062020-O.jpg"
+           alt="Canon EOS Rebel SL3 Kit 18-55mm 24.1MP 4K Wi-Fi"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_848621-MLA42268774774_062020-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Canon EOS Rebel SL3 Kit 18-55mm 24.1MP 4K Wi-Fi</p>
+      <div class="prices">
+        <s class='oldp'>R$ 4.999,00</s>
+        <div class="prow">
+          <span class="price">R$ 3.999,00</span>
+          <span class='bdsc'>-20%</span>
+        </div>
+        <p class='inst'>12x de R$ 333,25 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/canon-eos-rebel-sl3/p/MLB15641226?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/fujifilm-instax-mini-12/p/MLB23700700?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_898055-MLA69813697525_062023-O.jpg"
+           alt="Câmera Instantânea Instax Mini 12 Fujifilm Rosa Mellow"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_898055-MLA69813697525_062023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Câmera Instantânea Instax Mini 12 Fujifilm Rosa Mellow</p>
+      <div class="prices">
+        <s class='oldp'>R$ 699,00</s>
+        <div class="prow">
+          <span class="price">R$ 499,00</span>
+          <span class='bdsc'>-29%</span>
+        </div>
+        <p class='inst'>12x de R$ 41,58 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/fujifilm-instax-mini-12/p/MLB23700700?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-beleza" role="tabpanel" aria-labelledby="tab-beleza" hidden>
+  <div class="panel-header">
+    <h2>🌸 Beleza</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=perfume&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/212-men-carolina-herrera/p/MLB8914609?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_862263-MLA31029688487_062019-O.jpg"
+           alt="Perfume 212 Men NYC Carolina Herrera EDT 100ml"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_862263-MLA31029688487_062019-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Perfume 212 Men NYC Carolina Herrera EDT 100ml</p>
+      <div class="prices">
+        <s class='oldp'>R$ 499,90</s>
+        <div class="prow">
+          <span class="price">R$ 349,90</span>
+          <span class='bdsc'>-30%</span>
+        </div>
+        <p class='inst'>12x de R$ 29,16 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/212-men-carolina-herrera/p/MLB8914609?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/ysl-la-nuit-de-lhomme/p/MLB10379398?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_748563-MLA31029745391_062019-O.jpg"
+           alt="Perfume La Nuit de L&#39;Homme Yves Saint Laurent EDT 100ml"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_748563-MLA31029745391_062019-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Perfume La Nuit de L&#39;Homme Yves Saint Laurent EDT 100ml</p>
+      <div class="prices">
+        <s class='oldp'>R$ 849,90</s>
+        <div class="prow">
+          <span class="price">R$ 599,90</span>
+          <span class='bdsc'>-29%</span>
+        </div>
+        <p class='inst'>12x de R$ 49,99 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/ysl-la-nuit-de-lhomme/p/MLB10379398?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/secador-mondial-super-pro-2200w/p/MLB16218741?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_891432-MLA45155614609_032021-O.jpg"
+           alt="Secador de Cabelo Mondial Super Pro 2200W 2 Velocidades"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_891432-MLA45155614609_032021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Secador de Cabelo Mondial Super Pro 2200W 2 Velocidades</p>
+      <div class="prices">
+        <s class='oldp'>R$ 219,90</s>
+        <div class="prow">
+          <span class="price">R$ 149,90</span>
+          <span class='bdsc'>-32%</span>
+        </div>
+        <p class='inst'>12x de R$ 12,49 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/secador-mondial-super-pro-2200w/p/MLB16218741?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/prancha-philco-pch01p/p/MLB15878098?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_705994-MLA43804254619_102020-O.jpg"
+           alt="Chapinha Prancha de Cabelo Philco PCH01P 220V Bivolt"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_705994-MLA43804254619_102020-O.jpg';this.onerror=null"
+           width="220" height="220">
+      
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Chapinha Prancha de Cabelo Philco PCH01P 220V Bivolt</p>
+      <div class="prices">
+        <s class='oldp'>R$ 199,90</s>
+        <div class="prow">
+          <span class="price">R$ 129,90</span>
+          <span class='bdsc'>-35%</span>
+        </div>
+        <p class='inst'>12x de R$ 10,83 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/prancha-philco-pch01p/p/MLB15878098?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-tenis" role="tabpanel" aria-labelledby="tab-tenis" hidden>
+  <div class="panel-header">
+    <h2>👟 Tênis</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=tenis esportivo&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/tenis-nike-revolution-7/p/MLB25803609?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_657622-MLA73100108018_112023-O.jpg"
+           alt="Tênis Nike Revolution 7 Masculino Corrida Preto"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_657622-MLA73100108018_112023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Tênis Nike Revolution 7 Masculino Corrida Preto</p>
+      <div class="prices">
+        <s class='oldp'>R$ 499,99</s>
+        <div class="prow">
+          <span class="price">R$ 349,99</span>
+          <span class='bdsc'>-30%</span>
+        </div>
+        <p class='inst'>12x de R$ 29,17 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/tenis-nike-revolution-7/p/MLB25803609?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/adidas-runfalcon-3/p/MLB23690716?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_867736-MLA71025534019_082023-O.jpg"
+           alt="Tênis Adidas Runfalcon 3.0 Masculino Academia Preto"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_867736-MLA71025534019_082023-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Tênis Adidas Runfalcon 3.0 Masculino Academia Preto</p>
+      <div class="prices">
+        <s class='oldp'>R$ 399,99</s>
+        <div class="prow">
+          <span class="price">R$ 299,99</span>
+          <span class='bdsc'>-25%</span>
+        </div>
+        <p class='inst'>12x de R$ 25,00 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/adidas-runfalcon-3/p/MLB23690716?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/vans-old-skool/p/MLB8695028?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_748519-MLA31054413791_062019-O.jpg"
+           alt="Tênis Vans Old Skool Unissex Preto/Branco Clássico"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_748519-MLA31054413791_062019-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Tênis Vans Old Skool Unissex Preto/Branco Clássico</p>
+      <div class="prices">
+        <s class='oldp'>R$ 499,99</s>
+        <div class="prow">
+          <span class="price">R$ 399,99</span>
+          <span class='bdsc'>-20%</span>
+        </div>
+        <p class='inst'>12x de R$ 33,33 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/vans-old-skool/p/MLB8695028?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/olympikus-corre/p/MLB19195283?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_709851-MLA46612218459_072021-O.jpg"
+           alt="Tênis Olympikus Corre Masculino Academia Branco"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_709851-MLA46612218459_072021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Tênis Olympikus Corre Masculino Academia Branco</p>
+      <div class="prices">
+        <s class='oldp'>R$ 279,99</s>
+        <div class="prow">
+          <span class="price">R$ 199,99</span>
+          <span class='bdsc'>-29%</span>
+        </div>
+        <p class='inst'>12x de R$ 16,67 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/olympikus-corre/p/MLB19195283?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-livros" role="tabpanel" aria-labelledby="tab-livros" hidden>
+  <div class="panel-header">
+    <h2>📚 Livros</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=livro&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/habitos-atomicos-james-clear/p/MLB21340685?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_803041-MLB52355219571_112022-O.jpg"
+           alt="Hábitos Atômicos — James Clear"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_803041-MLB52355219571_112022-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Hábitos Atômicos — James Clear</p>
+      <div class="prices">
+        <s class='oldp'>R$ 79,90</s>
+        <div class="prow">
+          <span class="price">R$ 49,90</span>
+          <span class='bdsc'>-38%</span>
+        </div>
+        
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/habitos-atomicos-james-clear/p/MLB21340685?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/o-homem-mais-rico-da-babilonia/p/MLB8234555?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_892819-MLB52355189351_112022-O.jpg"
+           alt="O Homem Mais Rico da Babilônia — George Clason"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_892819-MLB52355189351_112022-O.jpg';this.onerror=null"
+           width="220" height="220">
+      
+      
+    </div>
+    <div class="cbody">
+      <p class="ctitle">O Homem Mais Rico da Babilônia — George Clason</p>
+      <div class="prices">
+        <s class='oldp'>R$ 49,90</s>
+        <div class="prow">
+          <span class="price">R$ 29,90</span>
+          <span class='bdsc'>-40%</span>
+        </div>
+        
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/o-homem-mais-rico-da-babilonia/p/MLB8234555?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/pai-rico-pai-pobre/p/MLB8218467?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_745697-MLB52355197431_112022-O.jpg"
+           alt="Pai Rico Pai Pobre — Robert Kiyosaki Edição Atualizada"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_745697-MLB52355197431_112022-O.jpg';this.onerror=null"
+           width="220" height="220">
+      
+      
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Pai Rico Pai Pobre — Robert Kiyosaki Edição Atualizada</p>
+      <div class="prices">
+        <s class='oldp'>R$ 59,90</s>
+        <div class="prow">
+          <span class="price">R$ 39,90</span>
+          <span class='bdsc'>-33%</span>
+        </div>
+        
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/pai-rico-pai-pobre/p/MLB8218467?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/a-sutil-arte-de-ligar/p/MLB12297862?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_634497-MLB52355221841_112022-O.jpg"
+           alt="A Sutil Arte de Ligar o F*da-se — Mark Manson"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_634497-MLB52355221841_112022-O.jpg';this.onerror=null"
+           width="220" height="220">
+      
+      
+    </div>
+    <div class="cbody">
+      <p class="ctitle">A Sutil Arte de Ligar o F*da-se — Mark Manson</p>
+      <div class="prices">
+        <s class='oldp'>R$ 54,90</s>
+        <div class="prow">
+          <span class="price">R$ 34,90</span>
+          <span class='bdsc'>-36%</span>
+        </div>
+        
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/a-sutil-arte-de-ligar/p/MLB12297862?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+<div class="panel" id="panel-brinquedos" role="tabpanel" aria-labelledby="tab-brinquedos" hidden>
+  <div class="panel-header">
+    <h2>🧸 Brinquedos</h2>
+    <a href="https://www.mercadolivre.com.br/jm/search?as_word=brinquedo&LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545"
+       target="_blank" rel="noopener sponsored" class="ver-mais">
+      Ver mais no ML ↗
+    </a>
+  </div>
+  <div class="grid"><article class="card">
+  <a href="https://www.mercadolivre.com.br/lego-classic-caixa-criativa/p/MLB20178480?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_869611-MLA44843213789_022021-O.jpg"
+           alt="LEGO Classic Caixa Criativa de Tijolos 790 peças 11016"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_869611-MLA44843213789_022021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">LEGO Classic Caixa Criativa de Tijolos 790 peças 11016</p>
+      <div class="prices">
+        <s class='oldp'>R$ 699,00</s>
+        <div class="prow">
+          <span class="price">R$ 499,00</span>
+          <span class='bdsc'>-29%</span>
+        </div>
+        <p class='inst'>12x de R$ 41,58 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/lego-classic-caixa-criativa/p/MLB20178480?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/barbie-fashionista-cadeira-rodas/p/MLB8521441?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_854097-MLA45155654449_032021-O.jpg"
+           alt="Boneca Barbie Fashionista com Cadeira de Rodas Articulada"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_854097-MLA45155654449_032021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Boneca Barbie Fashionista com Cadeira de Rodas Articulada</p>
+      <div class="prices">
+        <s class='oldp'>R$ 149,90</s>
+        <div class="prow">
+          <span class="price">R$ 99,90</span>
+          <span class='bdsc'>-33%</span>
+        </div>
+        
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/barbie-fashionista-cadeira-rodas/p/MLB8521441?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/hot-wheels-pista-loop-duplo/p/MLB16378046?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_813601-MLA44183380497_112020-O.jpg"
+           alt="Hot Wheels Pista Loop Duplo FuryHW5 Carrinhos"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_813601-MLA44183380497_112020-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Hot Wheels Pista Loop Duplo FuryHW5 Carrinhos</p>
+      <div class="prices">
+        <s class='oldp'>R$ 199,90</s>
+        <div class="prow">
+          <span class="price">R$ 149,90</span>
+          <span class='bdsc'>-25%</span>
+        </div>
+        <p class='inst'>12x de R$ 12,49 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/hot-wheels-pista-loop-duplo/p/MLB16378046?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article>
+<article class="card">
+  <a href="https://www.mercadolivre.com.br/nerf-elite-shockwave/p/MLB20183895?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545" target="_blank" rel="noopener sponsored" class="card-link">
+    <div class="cimg">
+      <img src="https://http2.mlstatic.com/D_NQ_NP_804671-MLA48152889498_112021-O.jpg"
+           alt="Nerf Elite 2.0 Shockwave RD-15 Lançador de Dardos"
+           loading="lazy"
+           onerror="this.src='https://http2.mlstatic.com/D_NQ_NP_804671-MLA48152889498_112021-O.jpg';this.onerror=null"
+           width="220" height="220">
+      <span class='bship'>FRETE GRÁTIS</span>
+      <span class='b12x'>12x</span>
+    </div>
+    <div class="cbody">
+      <p class="ctitle">Nerf Elite 2.0 Shockwave RD-15 Lançador de Dardos</p>
+      <div class="prices">
+        <s class='oldp'>R$ 329,90</s>
+        <div class="prow">
+          <span class="price">R$ 249,90</span>
+          <span class='bdsc'>-24%</span>
+        </div>
+        <p class='inst'>12x de R$ 20,82 sem juros*</p>
+      </div>
+    </div>
+  </a>
+  <button class="btn-cp" onclick="cp('https://www.mercadolivre.com.br/nerf-elite-shockwave/p/MLB20183895?LID=bebr9579545&amp;matt_tool=afiliation&amp;matt_word=bebr9579545',this)">📋 Copiar link de afiliado</button>
+</article></div>
+</div>
+
+  <div class="disc">
+    <strong>Aviso obrigatório (CONAR / Código de Defesa do Consumidor):</strong>
+    Esta página contém links de afiliado do Programa de Afiliados e Criadores do Mercado Livre (ID: bebr9579545).
+    Ao clicar nos links e realizar uma compra, posso receber uma comissão a título de direito de imagem,
+    sem qualquer custo adicional para você. Todos os produtos são vendidos, anunciados e entregues pelo
+    <strong>Mercado Livre</strong>. Preços e disponibilidade estão sujeitos a alteração — confirme sempre
+    no site antes de finalizar a compra.
+  </div>
+</main>
+
+<footer>
+  MaisBarato · Vitrine de afiliados do Mercado Livre · Conteúdo publicitário<br>
+  <span style="font-size:11px;margin-top:4px;display:block">Preços atualizados periodicamente · Todos os produtos vendidos pelo Mercado Livre</span>
+</footer>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script>
+const TAG = 'bebr9579545';
+const SEED = {"eletronicos": [{"title": "Samsung Galaxy A55 5G 256GB 8GB RAM Azul Aborígene", "price": 1899.9, "original_price": 2499.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_617325-MLA71783088053_092023-O.jpg", "permalink": "https://www.mercadolivre.com.br/samsung-galaxy-a55-5g-256gb-8gb-ram-azul-aborigene/p/MLB30441600?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "iPhone 15 128GB Apple Preto Desbloqueado", "price": 4199.0, "original_price": 4799.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_773243-MLA71533688452_092023-O.jpg", "permalink": "https://www.mercadolivre.com.br/apple-iphone-15-128-gb-preto/p/MLB27993069?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Motorola Moto G85 256GB 12GB RAM 5G Grafite", "price": 1499.0, "original_price": 1899.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_847655-MLA75501642743_042024-O.jpg", "permalink": "https://www.mercadolivre.com.br/motorola-moto-g85/p/MLB35040748?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Samsung Galaxy A35 5G 128GB 6GB RAM Azul", "price": 1299.0, "original_price": 1699.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_757484-MLA74659053098_022024-O.jpg", "permalink": "https://www.mercadolivre.com.br/samsung-galaxy-a35-5g/p/MLB29988148?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Xiaomi Redmi Note 13 256GB 8GB RAM 4G Global", "price": 1099.0, "original_price": 1399.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_715684-MLA74234889695_012024-O.jpg", "permalink": "https://www.mercadolivre.com.br/xiaomi-redmi-note-13/p/MLB30041853?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Tablet Samsung Galaxy Tab A9+ 64GB Wi-Fi Grafite", "price": 1399.0, "original_price": 1799.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_871068-MLA74062283617_012024-O.jpg", "permalink": "https://www.mercadolivre.com.br/tablet-samsung-galaxy-tab-a9/p/MLB28748014?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}], "computadores": [{"title": "Notebook Samsung Book Intel Core i5 8GB 256GB SSD 15.6\"", "price": 2499.0, "original_price": 3199.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_881668-MLA50264836185_052022-O.jpg", "permalink": "https://www.mercadolivre.com.br/notebook-samsung-book-intel-core-i5/p/MLB20740816?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Notebook Lenovo IdeaPad 1i Core i5 12a Ger 8GB 512GB SSD", "price": 2799.0, "original_price": 3499.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_613245-MLA71568527783_092023-O.jpg", "permalink": "https://www.mercadolivre.com.br/notebook-lenovo-ideapad-1i/p/MLB26267498?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Notebook Dell Inspiron 15 Core i5 8GB 256GB SSD Full HD", "price": 3199.0, "original_price": 3999.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_740071-MLA52073580384_102022-O.jpg", "permalink": "https://www.mercadolivre.com.br/notebook-dell-inspiron-15/p/MLB19878923?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Notebook Acer Aspire 3 Core i3 4GB 256GB SSD 15.6\" W11", "price": 1999.0, "original_price": 2499.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_765395-MLA50059052476_052022-O.jpg", "permalink": "https://www.mercadolivre.com.br/notebook-acer-aspire-3/p/MLB21063543?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}], "audio": [{"title": "Fone JBL Tune 510BT Bluetooth Over Ear Preto", "price": 249.9, "original_price": 399.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_798781-MLA48152928798_112021-O.jpg", "permalink": "https://www.mercadolivre.com.br/fone-jbl-tune-510bt/p/MLB20706223?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Sony WH-1000XM5 Noise Cancelling Bluetooth Preto", "price": 1599.0, "original_price": 2199.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_713901-MLA53220574866_012023-O.jpg", "permalink": "https://www.mercadolivre.com.br/sony-wh-1000xm5/p/MLB22889694?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Caixa de Som JBL Go 4 Bluetooth Portátil à Prova d'água", "price": 299.0, "original_price": 399.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_853849-MLA73191236695_122023-O.jpg", "permalink": "https://www.mercadolivre.com.br/caixa-de-som-jbl-go-4/p/MLB30049716?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Samsung Galaxy Buds FE True Wireless Grafite", "price": 399.0, "original_price": 599.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_769065-MLA72411909427_102023-O.jpg", "permalink": "https://www.mercadolivre.com.br/samsung-galaxy-buds-fe/p/MLB26553685?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Caixa JBL Charge 5 Bluetooth 40W à Prova d'água", "price": 799.0, "original_price": 999.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_895876-MLA48152823098_112021-O.jpg", "permalink": "https://www.mercadolivre.com.br/jbl-charge-5/p/MLB19282226?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}], "smartwatch": [{"title": "Samsung Galaxy Watch6 40mm Bluetooth Grafite", "price": 999.0, "original_price": 1399.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_870094-MLA71569017463_092023-O.jpg", "permalink": "https://www.mercadolivre.com.br/samsung-galaxy-watch6-40mm/p/MLB24651038?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Apple Watch SE 2ª Geração 40mm GPS Preto", "price": 2199.0, "original_price": 2699.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_660965-MLA61232476367_042023-O.jpg", "permalink": "https://www.mercadolivre.com.br/apple-watch-se-2/p/MLB23937725?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Xiaomi Redmi Watch 4 AMOLED GPS Cinza 2GB", "price": 499.0, "original_price": 699.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_667394-MLA75393760012_032024-O.jpg", "permalink": "https://www.mercadolivre.com.br/xiaomi-redmi-watch-4/p/MLB30569724?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Garmin Forerunner 55 GPS Corrida Natação Branco", "price": 999.0, "original_price": 1299.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_613539-MLA47819178244_102021-O.jpg", "permalink": "https://www.mercadolivre.com.br/garmin-forerunner-55/p/MLB19624019?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}], "casa": [{"title": "Ar Condicionado Split Samsung WindFree 12000 BTUs Inverter", "price": 2699.0, "original_price": 3499.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_711488-MLA44940598870_022021-O.jpg", "permalink": "https://www.mercadolivre.com.br/ar-condicionado-samsung-windfree-12000/p/MLB17795529?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Aspirador Robô Xiaomi Robot Vacuum E10C Wi-Fi Mapeamento", "price": 899.0, "original_price": 1299.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_793455-MLA71783131453_092023-O.jpg", "permalink": "https://www.mercadolivre.com.br/xiaomi-robot-vacuum-e10c/p/MLB26816026?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Fritadeira Elétrica Air Fryer Mondial 4L Preto 1500W", "price": 279.9, "original_price": 399.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_784901-MLA44576703014_012021-O.jpg", "permalink": "https://www.mercadolivre.com.br/air-fryer-mondial-4l/p/MLB16867026?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Lâmpada LED Inteligente Wi-Fi RGB 10W Positivo Smart", "price": 49.9, "original_price": 79.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_631819-MLA43063671024_082020-O.jpg", "permalink": "https://www.mercadolivre.com.br/lampada-inteligente-positivo/p/MLB17082049?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": false}], "cameras": [{"title": "GoPro Hero 12 Black 5.3K À Prova d'água + Acessórios", "price": 2199.0, "original_price": 2799.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_686591-MLA72660196671_112023-O.jpg", "permalink": "https://www.mercadolivre.com.br/gopro-hero-12-black/p/MLB27648734?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Canon EOS Rebel SL3 Kit 18-55mm 24.1MP 4K Wi-Fi", "price": 3999.0, "original_price": 4999.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_848621-MLA42268774774_062020-O.jpg", "permalink": "https://www.mercadolivre.com.br/canon-eos-rebel-sl3/p/MLB15641226?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Câmera Instantânea Instax Mini 12 Fujifilm Rosa Mellow", "price": 499.0, "original_price": 699.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_898055-MLA69813697525_062023-O.jpg", "permalink": "https://www.mercadolivre.com.br/fujifilm-instax-mini-12/p/MLB23700700?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}], "beleza": [{"title": "Perfume 212 Men NYC Carolina Herrera EDT 100ml", "price": 349.9, "original_price": 499.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_862263-MLA31029688487_062019-O.jpg", "permalink": "https://www.mercadolivre.com.br/212-men-carolina-herrera/p/MLB8914609?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Perfume La Nuit de L'Homme Yves Saint Laurent EDT 100ml", "price": 599.9, "original_price": 849.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_748563-MLA31029745391_062019-O.jpg", "permalink": "https://www.mercadolivre.com.br/ysl-la-nuit-de-lhomme/p/MLB10379398?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Secador de Cabelo Mondial Super Pro 2200W 2 Velocidades", "price": 149.9, "original_price": 219.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_891432-MLA45155614609_032021-O.jpg", "permalink": "https://www.mercadolivre.com.br/secador-mondial-super-pro-2200w/p/MLB16218741?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": false}, {"title": "Chapinha Prancha de Cabelo Philco PCH01P 220V Bivolt", "price": 129.9, "original_price": 199.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_705994-MLA43804254619_102020-O.jpg", "permalink": "https://www.mercadolivre.com.br/prancha-philco-pch01p/p/MLB15878098?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": false}], "tenis": [{"title": "Tênis Nike Revolution 7 Masculino Corrida Preto", "price": 349.99, "original_price": 499.99, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_657622-MLA73100108018_112023-O.jpg", "permalink": "https://www.mercadolivre.com.br/tenis-nike-revolution-7/p/MLB25803609?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Tênis Adidas Runfalcon 3.0 Masculino Academia Preto", "price": 299.99, "original_price": 399.99, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_867736-MLA71025534019_082023-O.jpg", "permalink": "https://www.mercadolivre.com.br/adidas-runfalcon-3/p/MLB23690716?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Tênis Vans Old Skool Unissex Preto/Branco Clássico", "price": 399.99, "original_price": 499.99, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_748519-MLA31054413791_062019-O.jpg", "permalink": "https://www.mercadolivre.com.br/vans-old-skool/p/MLB8695028?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Tênis Olympikus Corre Masculino Academia Branco", "price": 199.99, "original_price": 279.99, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_709851-MLA46612218459_072021-O.jpg", "permalink": "https://www.mercadolivre.com.br/olympikus-corre/p/MLB19195283?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}], "livros": [{"title": "Hábitos Atômicos — James Clear", "price": 49.9, "original_price": 79.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_803041-MLB52355219571_112022-O.jpg", "permalink": "https://www.mercadolivre.com.br/habitos-atomicos-james-clear/p/MLB21340685?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "O Homem Mais Rico da Babilônia — George Clason", "price": 29.9, "original_price": 49.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_892819-MLB52355189351_112022-O.jpg", "permalink": "https://www.mercadolivre.com.br/o-homem-mais-rico-da-babilonia/p/MLB8234555?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": false}, {"title": "Pai Rico Pai Pobre — Robert Kiyosaki Edição Atualizada", "price": 39.9, "original_price": 59.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_745697-MLB52355197431_112022-O.jpg", "permalink": "https://www.mercadolivre.com.br/pai-rico-pai-pobre/p/MLB8218467?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": false}, {"title": "A Sutil Arte de Ligar o F*da-se — Mark Manson", "price": 34.9, "original_price": 54.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_634497-MLB52355221841_112022-O.jpg", "permalink": "https://www.mercadolivre.com.br/a-sutil-arte-de-ligar/p/MLB12297862?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": false}], "brinquedos": [{"title": "LEGO Classic Caixa Criativa de Tijolos 790 peças 11016", "price": 499.0, "original_price": 699.0, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_869611-MLA44843213789_022021-O.jpg", "permalink": "https://www.mercadolivre.com.br/lego-classic-caixa-criativa/p/MLB20178480?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Boneca Barbie Fashionista com Cadeira de Rodas Articulada", "price": 99.9, "original_price": 149.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_854097-MLA45155654449_032021-O.jpg", "permalink": "https://www.mercadolivre.com.br/barbie-fashionista-cadeira-rodas/p/MLB8521441?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Hot Wheels Pista Loop Duplo FuryHW5 Carrinhos", "price": 149.9, "original_price": 199.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_813601-MLA44183380497_112020-O.jpg", "permalink": "https://www.mercadolivre.com.br/hot-wheels-pista-loop-duplo/p/MLB16378046?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}, {"title": "Nerf Elite 2.0 Shockwave RD-15 Lançador de Dardos", "price": 249.9, "original_price": 329.9, "thumbnail": "https://http2.mlstatic.com/D_NQ_NP_804671-MLA48152889498_112021-O.jpg", "permalink": "https://www.mercadolivre.com.br/nerf-elite-shockwave/p/MLB20183895?LID=bebr9579545&matt_tool=afiliation&matt_word=bebr9579545", "free_shipping": true}]};
+const QUERIES = {"eletronicos": "smartphone", "computadores": "notebook", "audio": "fone bluetooth", "smartwatch": "smartwatch", "casa": "ar condicionado", "cameras": "camera", "beleza": "perfume", "tenis": "tenis esportivo", "livros": "livro", "brinquedos": "brinquedo"};
+
+// ── TABS ──────────────────────────────────────────────
+function switchTab(btn) {
+  document.querySelectorAll('.tab').forEach(t => {
+    t.classList.remove('active');
+    t.setAttribute('aria-selected','false');
+  });
+  document.querySelectorAll('.panel').forEach(p => p.hidden = true);
+  btn.classList.add('active');
+  btn.setAttribute('aria-selected','true');
+  const target = btn.dataset.target;
+  const panel = document.getElementById('panel-' + target);
+  if (panel) {
+    panel.hidden = false;
+    panel.scrollIntoView({behavior:'smooth', block:'start', inline:'nearest'});
+  }
+  closeSearch();
+}
+
+// Ativar primeiro painel
+(function(){
+  const first = document.querySelector('.panel');
+  if (first) first.hidden = false;
+})();
+
+// ── BUSCA ─────────────────────────────────────────────
+function doSearch() {
+  const q = document.getElementById('si').value.trim();
+  if (!q) return;
+  const sec = document.getElementById('sr-section');
+  const grid = document.getElementById('sr-grid');
+  const title = document.getElementById('sr-title');
+  sec.style.display = 'block';
+  title.textContent = 'Buscando "' + q + '"...';
+  grid.innerHTML = '<div class="sr-loading"><div class="spin"></div><p>Buscando no Mercado Livre...</p></div>';
+  sec.scrollIntoView({behavior:'smooth', block:'start'});
+
+  // Tentar proxies CORS
+  const enc = encodeURIComponent('https://api.mercadolibre.com/sites/MLB/search?q=' + encodeURIComponent(q) + '&limit=24');
+  const proxies = [
+    'https://corsproxy.io/?' + enc,
+    'https://api.allorigins.win/get?url=' + enc
+  ];
+  tryProxies(proxies, q, grid, title);
+}
+
+async function tryProxies(proxies, q, grid, title) {
+  for (const url of proxies) {
+    try {
+      const r = await fetch(url, {signal: AbortSignal.timeout(8000)});
+      if (!r.ok) continue;
+      let d = await r.json();
+      if (d.contents) d = JSON.parse(d.contents);
+      const items = (d.results || []).filter(p => p.thumbnail && p.permalink);
+      if (items.length > 0) {
+        title.textContent = items.length + ' resultados para "' + q + '"';
+        grid.innerHTML = items.map(p => dynCard(p)).join('');
+        return;
+      }
+    } catch(e) { continue; }
+  }
+  // Fallback: link direto ML com afiliado
+  title.textContent = 'Resultados para "' + q + '"';
+  grid.innerHTML = `
+    <div style="grid-column:1/-1;text-align:center;padding:2.5rem 1rem">
+      <p style="font-size:15px;margin-bottom:1rem;color:#4A4A4A">Busque diretamente no Mercado Livre e ganhe com seu link de afiliado:</p>
+      <a href="https://www.mercadolivre.com.br/jm/search?as_word=${encodeURIComponent(q)}&LID=${TAG}&matt_tool=afiliation&matt_word=${TAG}"
+         target="_blank" rel="noopener sponsored"
+         style="display:inline-block;background:#3483FA;color:#fff;padding:12px 28px;border-radius:8px;font-size:15px;font-weight:700;text-decoration:none">
+        🔍 Buscar "${q}" no Mercado Livre ↗
+      </a>
+      <p style="font-size:12px;color:#888;margin-top:.75rem">#publi — link de afiliado</p>
+    </div>`;
+}
+
+function dynCard(p) {
+  const url = affUrl(p.permalink);
+  const hasDsc = p.original_price && p.original_price > p.price;
+  const dPct = hasDsc ? Math.round((1 - p.price/p.original_price)*100) : 0;
+  const free = (p.shipping||{}).free_shipping;
+  const inst = p.price >= 100 ? brl(p.price/12) : '';
+  const thumb = (p.thumbnail||'').replace('I.jpg','O.jpg');
+  return `<article class="card">
+    <a href="${url}" target="_blank" rel="noopener sponsored" class="card-link">
+      <div class="cimg">
+        <img src="${esc(thumb)}" alt="${esc(p.title)}" loading="lazy" onerror="this.src='${esc(p.thumbnail||'')}';this.onerror=null" width="200" height="200">
+        ${free?'<span class="bship">FRETE GRÁTIS</span>':''}
+        ${inst?'<span class="b12x">12x</span>':''}
+      </div>
+      <div class="cbody">
+        <p class="ctitle">${esc(p.title)}</p>
+        <div class="prices">
+          ${hasDsc?'<s class="oldp">'+brl(p.original_price)+'</s>':''}
+          <div class="prow"><span class="price">${brl(p.price)}</span>${dPct>=5?'<span class="bdsc">-'+dPct+'%</span>':''}</div>
+          ${inst?'<p class="inst">12x de '+inst+' sem juros*</p>':''}
+        </div>
+      </div>
+    </a>
+    <button class="btn-cp" onclick="cp('${url.replace(/'/g,"\\'")},this)">📋 Copiar link de afiliado</button>
+  </article>`;
+}
+
+function closeSearch() {
+  document.getElementById('sr-section').style.display = 'none';
+  document.getElementById('si').value = '';
+}
+
+document.getElementById('si').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
+
+// ── UTILITÁRIOS ───────────────────────────────────────
+function affUrl(u) {
+  try {
+    const url = new URL(u);
+    url.searchParams.set('LID', TAG);
+    url.searchParams.set('matt_tool', 'afiliation');
+    url.searchParams.set('matt_word', TAG);
+    return url.toString();
+  } catch(e) { return u; }
+}
+function brl(n) {
+  return 'R$ ' + Number(n).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function esc(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function cp(url, btn) {
+  navigator.clipboard.writeText(url)
+    .then(() => {
+      toast('✅ Link de afiliado copiado!');
+      const o = btn.textContent;
+      btn.textContent = '✅ Copiado!';
+      setTimeout(() => btn.textContent = o, 2000);
+    })
+    .catch(() => prompt('Copie o link:', url));
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg;
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 3000);
+}
+</script>
+</body>
+</html>
