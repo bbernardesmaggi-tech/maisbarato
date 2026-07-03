@@ -1,0 +1,15 @@
+# MaisBarato — robots.txt
+User-agent: *
+Allow: /
+
+# Sitemap
+Sitemap: https://maisbarato.com.br/sitemap.xml
+
+# Bloquear parâmetros irrelevantes para o Google
+User-agent: Googlebot
+Disallow: /cdn-cgi/
+Allow: /?q=
+
+# Permitir rastreamento de imagens
+User-agent: Googlebot-Image
+Allow: /
