@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaisBarato — Autorizar ML</title>
+<style>
+  body{font-family:'Segoe UI',sans-serif;background:#f5f5f5;display:flex;align-items:center;justify-content:center;min-height:100vh;margin:0}
+  .card{background:#fff;border-radius:16px;padding:2.5rem;max-width:480px;width:90%;box-shadow:0 4px 24px rgba(0,0,0,.1);text-align:center}
+  .logo{font-size:28px;font-weight:800;margin-bottom:.5rem}
+  .logo span{color:#3483FA}
+  h1{font-size:18px;font-weight:600;margin-bottom:.75rem;color:#1A1A1A}
+  p{font-size:14px;color:#666;margin-bottom:1.5rem;line-height:1.6}
+  .btn{display:inline-block;background:#FFE600;color:#1A1A1A;font-weight:700;font-size:16px;padding:14px 32px;border-radius:8px;text-decoration:none;transition:all .15s}
+  .btn:hover{background:#e6cf00;transform:translateY(-1px)}
+  .status{margin-top:1.5rem;padding:1rem;border-radius:8px;font-size:13px;display:none}
+  .status.ok{background:#E8F8EF;color:#00A650;display:block}
+  .status.err{background:#FEECEC;color:#C0392B;display:block}
+  code{background:#f0f0f0;padding:2px 6px;border-radius:4px;font-size:12px}
+</style>
+</head>
+<body>
+<div class="card">
+  <div class="logo">Mais<span>Barato</span></div>
+  <h1>Autorizar acesso ao Mercado Livre</h1>
+  <p>Clique no botão abaixo para autorizar o MaisBarato a buscar produtos no ML em seu nome. Você será redirecionado para o ML e de volta automaticamente.</p>
+  <a class="btn" id="authBtn" href="#">🔑 Autorizar com Mercado Livre</a>
+  <div class="status" id="status"></div>
+  <p style="margin-top:1.5rem;font-size:12px;color:#999">Esta autorização é necessária apenas uma vez. Seus dados de vendedor não são acessados.</p>
+</div>
+<script>
+const CLIENT_ID = '558530688805172';
+const REDIRECT = encodeURIComponent('https://www.maisbaratoone.com.br/api/callback');
+const AUTH_URL = `https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT}`;
+
+document.getElementById('authBtn').href = AUTH_URL;
+
+// Se voltou com code na URL
+const params = new URLSearchParams(location.search);
+const code = params.get('code');
+if (code) {
+  const status = document.getElementById('status');
+  status.textContent = '✅ Autorização recebida! Salvando token...';
+  status.className = 'status ok';
+  fetch(`/api/callback?code=${code}`)
+    .then(r => r.json())
+    .then(d => {
+      if (d.ok) {
+        status.textContent = '✅ Token salvo! O site está pronto para buscar produtos.';
+      } else {
+        status.className = 'status err';
+        status.textContent = '❌ Erro: ' + (d.error || 'Tente novamente');
+      }
+    });
+}
+</script>
+</body>
+</html>
