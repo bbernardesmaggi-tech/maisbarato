@@ -10,7 +10,7 @@ Busca realizada por proxy serverless no Vercel — sem bloqueio de CORS, produto
 ```
 maisbarato/
 ├── api/
-│   ├── search.js       ← Proxy serverless: busca produtos na API do ML (sem CORS)
+│   ├── search.js       ← Proxy serverless: busca produtos na API do ML (sem CORS)   
 │   └── rebuild.py      ← Endpoint de rebuild (legado, não utilizado ativamente)
 ├── public/
 │   ├── index.html      ← Vitrine principal com abas, busca e cards de produto
