@@ -39,9 +39,9 @@ header{background:var(--y);position:sticky;top:0;z-index:200;box-shadow:0 2px 8p
 .tab.active{color:var(--b);border-bottom-color:var(--b);font-weight:700}
 .pub{background:#fff8e1;border-bottom:1px solid #ffe082;padding:.5rem 1.5rem;font-size:12px;color:#5a4000;text-align:center}
 .main{max-width:1200px;margin:0 auto;padding:1.5rem}
-.panel{display:none}
-.panel.active{display:block;animation:fadeIn .2s ease}
-@keyframes fadeIn{from{opacity:0;transform:translateY(5px)}to{opacity:1;transform:none}}
+.panel{display:block;margin-bottom:2.5rem}
+.panel:last-of-type{margin-bottom:0}
+.hidden{display:none}
 .panel-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:1.25rem;flex-wrap:wrap;gap:.5rem}
 .panel-header h2{font-size:20px;font-weight:700}
 .ver-mais{font-size:13px;color:var(--b);font-weight:600;text-decoration:none;padding:6px 16px;border:1.5px solid var(--b);border-radius:20px;transition:all .15s;white-space:nowrap}
@@ -70,6 +70,7 @@ header{background:var(--y);position:sticky;top:0;z-index:200;box-shadow:0 2px 8p
 .inst{font-size:11px;color:var(--g);font-weight:500;margin-top:1px}
 .btn-cp{width:100%;background:var(--gl);color:var(--g);text-align:center;padding:9px;font-size:12px;font-weight:700;cursor:pointer;border:none;border-top:1px solid #c8efd8;transition:background .15s}
 .btn-cp:hover{background:#c0ebd0}
+.share-hint{text-align:center;font-size:11px;color:var(--mu);padding:5px 0 0;background:var(--s)}
 .close-btn{background:transparent;border:1.5px solid var(--br);border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer;color:var(--mu)}
 .disc{margin-top:2.5rem;padding:1.1rem 1.4rem;background:#fff;border-radius:var(--r);border:1px solid var(--br);font-size:12px;color:var(--mu);line-height:1.7}
 .disc strong{color:var(--tm)}
@@ -174,6 +175,9 @@ function buildUI() {
   tabsEl.innerHTML = '';
   mainEl.innerHTML = '';
 
+  const catsWrap = document.createElement('div');
+  catsWrap.id = 'categories';
+
   CATS.forEach((cat, i) => {
     const btn = document.createElement('button');
     btn.className = 'tab' + (i === 0 ? ' active' : '');
@@ -185,7 +189,7 @@ function buildUI() {
 
     const items = allProducts[cat.id] || [];
     const panel = document.createElement('div');
-    panel.className = 'panel' + (i === 0 ? ' active' : '');
+    panel.className = 'panel';
     panel.id = 'panel-' + cat.id;
 
     const sortBarHtml = items.length > 1 ? `
@@ -210,10 +214,12 @@ function buildUI() {
           ? `<div class="state"><p>Em breve</p><p class="hint">Produtos desta categoria serão adicionados em breve.</p></div>`
           : ''}
       </div>`;
-    mainEl.appendChild(panel);
+    catsWrap.appendChild(panel);
 
     if (items.length > 0) renderGrid(document.getElementById('grid-' + cat.id), items);
   });
+
+  mainEl.appendChild(catsWrap);
 
   mainEl.insertAdjacentHTML('beforeend', `
     <div class="disc">
@@ -226,14 +232,21 @@ function buildUI() {
 
 function switchTab(id) {
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
-  document.getElementById('tab-'+id).classList.add('active');
-  document.getElementById('panel-'+id).classList.add('active');
+  const tabBtn = document.getElementById('tab-'+id);
+  if (tabBtn) tabBtn.classList.add('active');
+
+  // Garante que a área de categorias esteja visível (saindo do modo de busca, se estiver nele)
+  const catsEl = document.getElementById('categories');
+  if (catsEl) catsEl.classList.remove('hidden');
   const sr = document.getElementById('panel-search');
   if (sr) sr.remove();
-  const offset = 130;
-  const top = document.getElementById('panel-'+id).getBoundingClientRect().top + window.scrollY - offset;
-  window.scrollTo({top, behavior:'smooth'});
+
+  const panel = document.getElementById('panel-'+id);
+  if (panel) {
+    const offset = 130;
+    const top = panel.getBoundingClientRect().top + window.scrollY - offset;
+    window.scrollTo({top, behavior:'smooth'});
+  }
 }
 
 function applySort(id) {
@@ -255,15 +268,16 @@ async function doSearch() {
   if (!q) return;
 
   document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  const catsEl = document.getElementById('categories');
+  if (catsEl) catsEl.classList.add('hidden');
 
   let sr = document.getElementById('panel-search');
   if (!sr) {
     sr = document.createElement('div');
     sr.id = 'panel-search';
-    sr.className = 'panel active';
+    sr.className = 'panel';
     mainEl.insertBefore(sr, mainEl.firstChild);
-  } else sr.classList.add('active');
+  }
 
   // Buscar em todos os produtos cadastrados
   const results = [];
@@ -297,7 +311,12 @@ function closeSearch() {
   const p = document.getElementById('panel-search');
   if (p) p.remove();
   document.getElementById('si').value = '';
-  switchTab(CATS[0].id);
+  const catsEl = document.getElementById('categories');
+  if (catsEl) catsEl.classList.remove('hidden');
+  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+  const firstTab = document.getElementById('tab-' + CATS[0].id);
+  if (firstTab) firstTab.classList.add('active');
+  window.scrollTo({top:0, behavior:'smooth'});
 }
 
 document.getElementById('si').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
@@ -330,16 +349,31 @@ function renderGrid(el, items) {
           </div>
         </div>
       </a>
-      <button class="btn-cp" onclick="cp('${url.replace(/\\/g,'\\\\').replace(/'/g,"\\'")}',this)">📋 Copiar link de afiliado</button>`;
+      <p class="share-hint">Curtiu? Manda pra alguém 😉</p>
+      <button class="btn-cp" data-url="${esc(url)}" data-title="${esc(p.title)}">📤 Compartilhar produto</button>`;
     grid.appendChild(art);
   });
   el.innerHTML = '';
   el.appendChild(grid);
+  grid.querySelectorAll('.btn-cp').forEach(btn => {
+    btn.addEventListener('click', () => shareProduct(btn.dataset.url, btn.dataset.title, btn));
+  });
 }
 
 function brl(n){return'R$\u00a0'+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
 function esc(s){return(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
-function cp(url,btn){navigator.clipboard.writeText(url).then(()=>{toast('✅ Link copiado!');const o=btn.textContent;btn.textContent='✅ Copiado!';setTimeout(()=>btn.textContent=o,2000);}).catch(()=>prompt('Copie:',url));}
+function shareProduct(url, title, btn) {
+  if (navigator.share) {
+    navigator.share({ title: title, url: url }).catch(() => {}); // usuário cancelou ou erro silencioso
+  } else {
+    navigator.clipboard.writeText(url).then(() => {
+      toast('🔗 Link copiado! Envie para um amigo');
+      const o = btn.textContent;
+      btn.textContent = '✅ Copiado!';
+      setTimeout(() => btn.textContent = o, 2000);
+    }).catch(() => prompt('Copie o link:', url));
+  }
+}
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
 loadProducts();
