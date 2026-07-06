@@ -7,16 +7,16 @@
 <meta name="description" content="Encontre as melhores ofertas e produtos mais vendidos do Mercado Livre com frete grátis e parcelamento.">
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1">
 <meta name="theme-color" content="#FFE600">
-<link rel="canonical" href="https://www.maisbaratoone.com.br/">
+<link rel="canonical" href="https://maisbaratoone.com.br/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="MaisBarato — Melhores Ofertas do Mercado Livre">
 <meta property="og:description" content="Os melhores produtos do Mercado Livre com frete grátis e menores preços.">
-<meta property="og:url" content="https://www.maisbaratoone.com.br/">
-<meta property="og:image" content="https://www.maisbaratoone.com.br/og-image.png">
+<meta property="og:url" content="https://maisbaratoone.com.br/">
+<meta property="og:image" content="https://maisbaratoone.com.br/og-image.png">
 <meta property="og:locale" content="pt_BR">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://www.maisbaratoone.com.br/og-image.png">
-<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"MaisBarato","url":"https://www.maisbaratoone.com.br/","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://www.maisbaratoone.com.br/?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
+<meta name="twitter:image" content="https://maisbaratoone.com.br/og-image.png">
+<script type="application/ld+json">{"@context":"https://schema.org","@type":"WebSite","name":"MaisBarato","url":"https://maisbaratoone.com.br/","potentialAction":{"@type":"SearchAction","target":{"@type":"EntryPoint","urlTemplate":"https://maisbaratoone.com.br/?q={search_term_string}"},"query-input":"required name=search_term_string"}}</script>
 <style>
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 :root{--y:#FFE600;--b:#3483FA;--bd:#2968C8;--g:#00A650;--gl:#E8F8EF;--bg:#F5F5F5;--s:#fff;--t:#1A1A1A;--tm:#4A4A4A;--mu:#999;--br:#E8E8E8;--r:12px;--sh:0 2px 10px rgba(0,0,0,.07);--shh:0 8px 24px rgba(0,0,0,.13)}
@@ -114,6 +114,20 @@ let allProducts = {};
 const tabsEl = document.getElementById('tabs');
 const mainEl = document.getElementById('main');
 
+// Mapeia rotas amigáveis (definidas no vercel.json) para o id da categoria em CATS
+const ROUTE_TO_CAT = {
+  '/eletronicos':     'eletronicos',
+  '/notebooks':        'computadores',
+  '/fones-de-ouvido':  'audio',
+  '/smartwatches':     'smartwatch',
+  '/casa-inteligente': 'casa',
+  '/cameras':          'cameras',
+  '/perfumes':         'beleza',
+  '/tenis':            'tenis',
+  '/livros':           'livros',
+  '/brinquedos':       'brinquedos',
+};
+
 // Carregar products.json
 async function loadProducts() {
   try {
@@ -121,6 +135,39 @@ async function loadProducts() {
     if (res.ok) allProducts = await res.json();
   } catch(e) { allProducts = {}; }
   buildUI();
+  applyRouteFromURL();
+}
+
+// Ativa a aba correspondente à rota atual (ex: /notebooks -> categoria "computadores")
+// e ajusta title/meta description para essa categoria, ajudando o Google a tratar
+// cada rota como uma página distinta.
+function applyRouteFromURL() {
+  const path = window.location.pathname.replace(/\/$/, '') || '/';
+  const catId = ROUTE_TO_CAT[path];
+  if (!catId) return; // home ou rota desconhecida: mantém a aba padrão
+
+  switchTab(catId);
+
+  const cat = CATS.find(c => c.id === catId);
+  if (cat) {
+    const cleanLabel = cat.label.replace(/^\p{Emoji}\s*/u, '').trim();
+    const pageUrl = 'https://maisbaratoone.com.br' + path + '/';
+
+    document.title = `${cleanLabel} — Ofertas do Mercado Livre | MaisBarato`;
+
+    const desc = document.querySelector('meta[name="description"]');
+    if (desc) desc.setAttribute('content', `As melhores ofertas de ${cleanLabel.toLowerCase()} do Mercado Livre com frete grátis e parcelamento.`);
+
+    // Cada rota de categoria vira sua própria página canônica, não uma variação da home
+    const canonical = document.querySelector('link[rel="canonical"]');
+    if (canonical) canonical.setAttribute('href', pageUrl);
+
+    const ogUrl = document.querySelector('meta[property="og:url"]');
+    if (ogUrl) ogUrl.setAttribute('content', pageUrl);
+
+    const ogTitle = document.querySelector('meta[property="og:title"]');
+    if (ogTitle) ogTitle.setAttribute('content', `${cleanLabel} — Melhores Ofertas do Mercado Livre`);
+  }
 }
 
 function buildUI() {
