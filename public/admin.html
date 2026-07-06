@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>MaisBarato — Painel Admin</title>
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{--y:#FFE600;--b:#3483FA;--bd:#2968C8;--g:#00A650;--gl:#E8F8EF;--bg:#F5F5F5;--s:#fff;--t:#1A1A1A;--mu:#888;--br:#E0E0E0;--r:10px}
+body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t);min-height:100vh}
+header{background:var(--y);padding:0 1.5rem;height:56px;display:flex;align-items:center;justify-content:space-between;box-shadow:0 2px 8px rgba(0,0,0,.12)}
+.logo{font-size:18px;font-weight:800;letter-spacing:-.5px}
+.logo span{color:var(--b)}
+.badge{background:#1A1A1A;color:var(--y);font-size:11px;font-weight:700;padding:4px 10px;border-radius:20px}
+.main{max-width:960px;margin:0 auto;padding:1.5rem}
+h1{font-size:20px;font-weight:700;margin-bottom:1.5rem}
+
+/* INFO */
+.info{background:#E8F0FF;border:1px solid #B8CFF7;border-radius:var(--r);padding:1rem 1.25rem;margin-bottom:1.5rem;font-size:13px;color:#1A3A6B;line-height:1.8}
+.info strong{display:block;font-size:14px;margin-bottom:.4rem}
+.info ol{padding-left:1.2rem}
+.info code{background:rgba(0,0,0,.08);padding:1px 5px;border-radius:4px;font-size:12px}
+
+/* TOOLBAR */
+.toolbar{background:var(--s);border-radius:var(--r);padding:1rem 1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:1rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.75rem}
+.toolbar p{font-size:13px;color:var(--mu)}
+.btns{display:flex;gap:.5rem;flex-wrap:wrap}
+.btn{border:none;border-radius:8px;padding:.55rem 1.1rem;font-size:13px;font-weight:700;cursor:pointer;transition:all .15s;white-space:nowrap}
+.btn-y{background:var(--y);color:var(--t)}.btn-y:hover{background:#e6cf00}
+.btn-b{background:var(--b);color:#fff;text-decoration:none;display:inline-flex;align-items:center}.btn-b:hover{background:var(--bd)}
+.btn-r{background:transparent;color:#c0392b;border:1px solid #ffb3b3}.btn-r:hover{background:#fff0f0}
+
+/* FORM */
+.form-card{background:var(--s);border-radius:var(--r);padding:1.5rem;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:1.5rem}
+.form-card h2{font-size:15px;font-weight:700;margin-bottom:1.25rem;padding-bottom:.75rem;border-bottom:1px solid var(--br)}
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.form-full{grid-column:1/-1}
+.field{display:flex;flex-direction:column;gap:.4rem}
+.field label{font-size:12px;font-weight:600;color:var(--mu);text-transform:uppercase;letter-spacing:.04em}
+.field input,.field select,.field textarea{border:1.5px solid var(--br);border-radius:8px;padding:.55rem .85rem;font-size:14px;outline:none;color:var(--t);background:#fff;font-family:inherit;transition:border .15s}
+.field input:focus,.field select:focus,.field textarea:focus{border-color:var(--b)}
+.field textarea{resize:vertical;min-height:60px}
+.field .hint{font-size:11px;color:var(--mu);margin-top:2px}
+
+/* PREVIEW IMG */
+.img-preview{width:80px;height:80px;object-fit:contain;border:1.5px solid var(--br);border-radius:8px;background:#f8f8f8;padding:4px;display:none;flex-shrink:0}
+.img-preview.show{display:block}
+.img-row{display:flex;align-items:center;gap:.75rem}
+
+/* FORM ACTIONS */
+.form-actions{display:flex;gap:.75rem;margin-top:1.25rem;padding-top:1rem;border-top:1px solid var(--br)}
+.btn-add{background:var(--g);color:#fff;border:none;border-radius:8px;padding:.65rem 1.5rem;font-size:14px;font-weight:700;cursor:pointer;transition:background .15s}
+.btn-add:hover{background:#008a42}
+.btn-reset{background:transparent;border:1.5px solid var(--br);border-radius:8px;padding:.65rem 1.25rem;font-size:13px;cursor:pointer;color:var(--mu)}
+.btn-reset:hover{border-color:var(--t);color:var(--t)}
+
+/* ERROR */
+.err{background:#FEECEC;border:1px solid #FFBABA;border-radius:8px;padding:.75rem 1rem;font-size:13px;color:#c0392b;display:none;margin-top:.75rem}
+.err.show{display:block}
+
+/* PRODUCT LIST */
+.cat-section{background:var(--s);border-radius:var(--r);padding:1.25rem;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:.75rem}
+.cat-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:.75rem}
+.cat-header h3{font-size:15px;font-weight:700}
+.cat-count{font-size:12px;color:var(--mu);background:var(--bg);padding:3px 8px;border-radius:10px}
+.prod-list{display:flex;flex-direction:column;gap:.5rem}
+.prod-item{display:flex;align-items:center;gap:.75rem;padding:.65rem;background:var(--bg);border-radius:8px}
+.prod-img{width:56px;height:56px;object-fit:contain;border-radius:6px;background:#fff;padding:3px;flex-shrink:0;border:1px solid var(--br)}
+.prod-info{flex:1;min-width:0}
+.prod-title{font-size:12px;font-weight:500;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;margin-bottom:2px}
+.prod-price{font-size:13px;font-weight:700;color:var(--t)}
+.prod-meta{font-size:11px;color:var(--mu);margin-top:1px}
+.prod-actions{display:flex;gap:.4rem;flex-shrink:0}
+.btn-edit{background:transparent;border:1px solid var(--br);border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;color:var(--b)}
+.btn-rm{background:transparent;border:1px solid #ffb3b3;border-radius:6px;padding:4px 8px;font-size:11px;cursor:pointer;color:#c0392b}
+.empty{font-size:13px;color:var(--mu);text-align:center;padding:.75rem;font-style:italic}
+
+/* TOAST */
+.toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(80px);background:#1A1A1A;color:#fff;padding:10px 20px;border-radius:20px;font-size:13px;opacity:0;transition:all .25s;z-index:9999;pointer-events:none}
+.toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
+@media(max-width:600px){
+  .form-grid{grid-template-columns:1fr}
+  .form-full{grid-column:1}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="logo">Mais<span>Barato</span></div>
+  <div class="badge">⚙️ Painel Admin</div>
+</header>
+
+<div class="main">
+  <h1>Gerenciar Produtos da Vitrine</h1>
+
+  <div class="info">
+    <strong>💡 Como adicionar produtos:</strong>
+    <ol>
+      <li>Abra o produto no Mercado Livre e copie a <strong>URL da página</strong></li>
+      <li>Clique com botão direito na <strong>foto do produto</strong> → "Copiar endereço da imagem"</li>
+      <li>Preencha os campos abaixo e clique em <strong>"Adicionar produto"</strong></li>
+      <li>Quando terminar, clique em <strong>"Exportar products.json"</strong> e faça upload no GitHub em <code>public/products.json</code></li>
+    </ol>
+    <div style="margin-top:.5rem">✅ O link de afiliado com sua tag <code>bebr9579545</code> é gerado automaticamente em todos os produtos.</div>
+  </div>
+
+  <!-- TOOLBAR -->
+  <div class="toolbar">
+    <p id="totalCount">0 produtos em 10 categorias</p>
+    <div class="btns">
+      <button class="btn btn-y" onclick="exportJSON()">⬇️ Exportar products.json</button>
+      <a class="btn btn-b" href="/" target="_blank">🌐 Ver vitrine</a>
+      <button class="btn btn-r" onclick="clearAll()">🗑️ Limpar tudo</button>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-card">
+    <h2>➕ Adicionar / Editar produto</h2>
+    <div class="form-grid">
+      <div class="field form-full">
+        <label>Categoria *</label>
+        <select id="fCat">
+          <option value="">— Selecione —</option>
+          <option value="eletronicos">📱 Eletrônicos</option>
+          <option value="computadores">💻 Computadores</option>
+          <option value="audio">🎧 Áudio</option>
+          <option value="smartwatch">⌚ Smartwatch</option>
+          <option value="casa">🏠 Casa</option>
+          <option value="cameras">📷 Câmeras</option>
+          <option value="beleza">🌸 Beleza</option>
+          <option value="tenis">👟 Tênis</option>
+          <option value="livros">📚 Livros</option>
+          <option value="brinquedos">🧸 Brinquedos</option>
+        </select>
+      </div>
+
+      <div class="field form-full">
+        <label>Título do produto *</label>
+        <input type="text" id="fTitle" placeholder="Ex: Notebook Dell Inspiron 15 Core i5 8GB 512GB SSD">
+      </div>
+
+      <div class="field">
+        <label>Preço atual (R$) *</label>
+        <input type="number" id="fPrice" placeholder="2499.90" step="0.01" min="0">
+      </div>
+
+      <div class="field">
+        <label>Preço original (R$) — opcional</label>
+        <input type="number" id="fOrigPrice" placeholder="3199.00" step="0.01" min="0">
+        <span class="hint">Deixe vazio se não houver desconto</span>
+      </div>
+
+      <div class="field form-full">
+        <label>URL do produto no ML *</label>
+        <input type="text" id="fLink" placeholder="https://www.mercadolivre.com.br/notebook-dell.../p/MLB70040558">
+        <span class="hint">Cole a URL completa da página do produto</span>
+      </div>
+
+      <div class="field form-full">
+        <label>URL da imagem *</label>
+        <div class="img-row">
+          <div style="flex:1;display:flex;flex-direction:column;gap:.4rem">
+            <input type="text" id="fImg" placeholder="https://http2.mlstatic.com/D_NQ_NP_..." oninput="previewImg()">
+            <span class="hint">Clique com botão direito na foto do produto → "Copiar endereço da imagem"</span>
+          </div>
+          <img id="imgPreview" class="img-preview" src="" alt="Preview">
+        </div>
+      </div>
+
+      <div class="field">
+        <label>Frete grátis?</label>
+        <select id="fShip">
+          <option value="true">✅ Sim — Frete grátis</option>
+          <option value="false">❌ Não</option>
+        </select>
+      </div>
+
+      <div class="field">
+        <label>ID único (gerado automaticamente)</label>
+        <input type="text" id="fId" placeholder="Gerado automaticamente" readonly style="background:#f5f5f5;color:#888">
+      </div>
+    </div>
+
+    <div class="err" id="errMsg"></div>
+
+    <div class="form-actions">
+      <button class="btn-add" onclick="saveProduct()">✅ Adicionar produto</button>
+      <button class="btn-reset" onclick="resetForm()">✕ Cancelar</button>
+    </div>
+  </div>
+
+  <!-- PRODUCT LIST -->
+  <div id="categories"></div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+<script>
+const TAG = 'bebr9579545';
+const STORAGE_KEY = 'maisbarato_v3';
+
+const CATS = [
+  {id:'eletronicos', label:'📱 Eletrônicos'},
+  {id:'computadores',label:'💻 Computadores'},
+  {id:'audio',       label:'🎧 Áudio'},
+  {id:'smartwatch',  label:'⌚ Smartwatch'},
+  {id:'casa',        label:'🏠 Casa'},
+  {id:'cameras',     label:'📷 Câmeras'},
+  {id:'beleza',      label:'🌸 Beleza'},
+  {id:'tenis',       label:'👟 Tênis'},
+  {id:'livros',      label:'📚 Livros'},
+  {id:'brinquedos',  label:'🧸 Brinquedos'},
+];
+
+let products = {};
+let editingId = null;
+let editingCat = null;
+
+try { products = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(e) {}
+
+// ── PREVIEW IMAGEM ───────────────────────────────────
+function previewImg() {
+  const url = document.getElementById('fImg').value.trim();
+  const img = document.getElementById('imgPreview');
+  if (url) {
+    img.src = url;
+    img.classList.add('show');
+    img.onerror = () => img.classList.remove('show');
+  } else {
+    img.classList.remove('show');
+  }
+}
+
+// ── SALVAR PRODUTO ───────────────────────────────────
+function saveProduct() {
+  const cat      = document.getElementById('fCat').value;
+  const title    = document.getElementById('fTitle').value.trim();
+  const price    = parseFloat(document.getElementById('fPrice').value);
+  const origPrice= parseFloat(document.getElementById('fOrigPrice').value) || null;
+  const link     = document.getElementById('fLink').value.trim();
+  const img      = document.getElementById('fImg').value.trim();
+  const ship     = document.getElementById('fShip').value === 'true';
+
+  // Validação
+  showErr('');
+  if (!cat)   { showErr('Selecione uma categoria.'); return; }
+  if (!title) { showErr('Preencha o título do produto.'); return; }
+  if (!price || price <= 0) { showErr('Preencha o preço corretamente.'); return; }
+  if (!link)  { showErr('Cole a URL do produto.'); return; }
+  if (!img)   { showErr('Cole a URL da imagem do produto.'); return; }
+
+  // Montar URL de afiliado
+  const affUrl = buildAffUrl(link);
+
+  // ID único
+  const id = editingId || ('p_' + Date.now());
+
+  const product = {
+    id, title, price,
+    original_price: origPrice,
+    thumbnail: img,
+    permalink: affUrl,
+    free_shipping: ship,
+  };
+
+  // Remover de categoria antiga se editando
+  if (editingId && editingCat) {
+    if (products[editingCat]) {
+      products[editingCat] = products[editingCat].filter(p => p.id !== editingId);
+    }
+  }
+
+  if (!products[cat]) products[cat] = [];
+
+  // Evitar duplicata (mesmo ID)
+  products[cat] = products[cat].filter(p => p.id !== id);
+  products[cat].push(product);
+
+  saveAndRender();
+  toast(editingId ? '✅ Produto atualizado!' : '✅ Produto adicionado!');
+  resetForm();
+}
+
+// ── EDITAR ───────────────────────────────────────────
+function editProduct(catId, productId) {
+  const items = products[catId] || [];
+  const p = items.find(x => x.id === productId);
+  if (!p) return;
+
+  editingId  = productId;
+  editingCat = catId;
+
+  document.getElementById('fCat').value      = catId;
+  document.getElementById('fTitle').value    = p.title;
+  document.getElementById('fPrice').value    = p.price;
+  document.getElementById('fOrigPrice').value= p.original_price || '';
+  document.getElementById('fLink').value     = p.permalink;
+  document.getElementById('fImg').value      = p.thumbnail;
+  document.getElementById('fShip').value     = p.free_shipping ? 'true' : 'false';
+  document.getElementById('fId').value       = p.id;
+  previewImg();
+
+  document.querySelector('.form-card h2').textContent = '✏️ Editando produto';
+  document.querySelector('.btn-add').textContent = '💾 Salvar alterações';
+  document.querySelector('.form-card').scrollIntoView({behavior:'smooth', block:'start'});
+}
+
+function resetForm() {
+  editingId = null; editingCat = null;
+  ['fCat','fTitle','fPrice','fOrigPrice','fLink','fImg','fId'].forEach(id => {
+    document.getElementById(id).value = '';
+  });
+  document.getElementById('fShip').value = 'true';
+  document.getElementById('imgPreview').classList.remove('show');
+  document.querySelector('.form-card h2').textContent = '➕ Adicionar / Editar produto';
+  document.querySelector('.btn-add').textContent = '✅ Adicionar produto';
+  showErr('');
+}
+
+function removeProduct(catId, productId) {
+  if (!products[catId]) return;
+  products[catId] = products[catId].filter(p => p.id !== productId);
+  saveAndRender();
+  toast('Produto removido');
+}
+
+function clearAll() {
+  if (!confirm('Remover todos os produtos?')) return;
+  products = {};
+  saveAndRender();
+  toast('Todos os produtos removidos');
+}
+
+// ── RENDER ───────────────────────────────────────────
+function saveAndRender() {
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(products));
+  renderAll();
+}
+
+function renderAll() {
+  const container = document.getElementById('categories');
+  let total = 0;
+  container.innerHTML = '';
+
+  CATS.forEach(cat => {
+    const items = products[cat.id] || [];
+    total += items.length;
+
+    const sec = document.createElement('div');
+    sec.className = 'cat-section';
+    sec.innerHTML = `
+      <div class="cat-header">
+        <h3>${cat.label}</h3>
+        <span class="cat-count">${items.length} produto${items.length!==1?'s':''}</span>
+      </div>
+      <div class="prod-list">
+        ${items.length === 0
+          ? '<div class="empty">Nenhum produto ainda.</div>'
+          : items.map(p => {
+              const disc = p.original_price && p.original_price > p.price
+                ? Math.round((1-p.price/p.original_price)*100) : 0;
+              return `
+                <div class="prod-item">
+                  <img class="prod-img" src="${esc(p.thumbnail)}" alt="${esc(p.title)}"
+                    onerror="this.style.opacity='.3'">
+                  <div class="prod-info">
+                    <div class="prod-title" title="${esc(p.title)}">${esc(p.title)}</div>
+                    <div class="prod-price">${brl(p.price)}${disc>=5?` <span style="font-size:11px;color:var(--g);font-weight:700">-${disc}%</span>`:''}</div>
+                    <div class="prod-meta">${p.free_shipping?'✅ Frete grátis · ':''}<a href="${esc(p.permalink)}" target="_blank" style="color:var(--b);font-size:11px">Ver no ML ↗</a></div>
+                  </div>
+                  <div class="prod-actions">
+                    <button class="btn-edit" onclick="editProduct('${cat.id}','${p.id}')">✏️ Editar</button>
+                    <button class="btn-rm"   onclick="removeProduct('${cat.id}','${p.id}')">✕ Remover</button>
+                  </div>
+                </div>`;
+            }).join('')}
+      </div>`;
+    container.appendChild(sec);
+  });
+
+  document.getElementById('totalCount').textContent =
+    `${total} produto${total!==1?'s':''} em ${CATS.length} categorias`;
+}
+
+// ── EXPORTAR ─────────────────────────────────────────
+function exportJSON() {
+  const total = Object.values(products).reduce((a,b)=>a+b.length,0);
+  if (total === 0) { toast('⚠️ Nenhum produto para exportar'); return; }
+
+  const blob = new Blob([JSON.stringify(products, null, 2)], {type:'application/json'});
+  const url  = URL.createObjectURL(blob);
+  const a    = document.createElement('a');
+  a.href = url; a.download = 'products.json'; a.click();
+  URL.revokeObjectURL(url);
+  toast('✅ products.json exportado! Faça upload em public/products.json no GitHub');
+}
+
+// ── UTILITÁRIOS ──────────────────────────────────────
+function buildAffUrl(url) {
+  try {
+    const u = new URL(url);
+    u.searchParams.set('LID', TAG);
+    u.searchParams.set('matt_tool', 'afiliation');
+    u.searchParams.set('matt_word', TAG);
+    return u.toString();
+  } catch(e) { return url + '?LID=' + TAG + '&matt_tool=afiliation&matt_word=' + TAG; }
+}
+function brl(n) {
+  return 'R$\u00a0'+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});
+}
+function esc(s) {
+  return (s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');
+}
+function showErr(msg) {
+  const el = document.getElementById('errMsg');
+  el.textContent = msg;
+  el.className = 'err' + (msg?' show':'');
+}
+function toast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+renderAll();
+</script>
+</body>
+</html>
