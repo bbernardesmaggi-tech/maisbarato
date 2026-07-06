@@ -216,7 +216,7 @@ function buildUI() {
       </div>`;
     catsWrap.appendChild(panel);
 
-    if (items.length > 0) renderGrid(document.getElementById('grid-' + cat.id), items);
+    if (items.length > 0) renderGrid(panel.querySelector('#grid-' + cat.id), items);
   });
 
   mainEl.appendChild(catsWrap);
