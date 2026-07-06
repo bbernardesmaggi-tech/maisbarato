@@ -16,8 +16,36 @@
       ]
     }
   ],
+  "redirects": [
+    {
+      "source": "/(.*)",
+      "has": [{ "type": "host", "value": "www.maisbaratoone.com.br" }],
+      "destination": "https://maisbaratoone.com.br/$1",
+      "permanent": true
+    },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "mais vendidos eletrônicos" }], "destination": "/eletronicos", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "notebook laptop" }], "destination": "/notebooks", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "fone de ouvido headphone" }], "destination": "/fones-de-ouvido", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "smartwatch relogio inteligente" }], "destination": "/smartwatches", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "casa inteligente smart home" }], "destination": "/casa-inteligente", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "câmera fotográfica" }], "destination": "/cameras", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "perfume masculino feminino" }], "destination": "/perfumes", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "tênis esportivo" }], "destination": "/tenis", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "livro bestseller" }], "destination": "/livros", "permanent": true },
+    { "source": "/", "has": [{ "type": "query", "key": "q", "value": "brinquedo infantil" }], "destination": "/brinquedos", "permanent": true }
+  ],
   "rewrites": [
     { "source": "/sitemap.xml", "destination": "/sitemap.xml" },
-    { "source": "/robots.txt",  "destination": "/robots.txt"  }
+    { "source": "/robots.txt",  "destination": "/robots.txt"  },
+    { "source": "/eletronicos",      "destination": "/index.html" },
+    { "source": "/notebooks",        "destination": "/index.html" },
+    { "source": "/fones-de-ouvido",  "destination": "/index.html" },
+    { "source": "/smartwatches",     "destination": "/index.html" },
+    { "source": "/casa-inteligente", "destination": "/index.html" },
+    { "source": "/cameras",          "destination": "/index.html" },
+    { "source": "/perfumes",         "destination": "/index.html" },
+    { "source": "/tenis",            "destination": "/index.html" },
+    { "source": "/livros",           "destination": "/index.html" },
+    { "source": "/brinquedos",       "destination": "/index.html" }
   ]
 }
