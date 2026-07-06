@@ -88,7 +88,10 @@ h1{font-size:20px;font-weight:700;margin-bottom:1.5rem}
 <body>
 <header>
   <div class="logo">Mais<span>Barato</span></div>
-  <div class="badge">⚙️ Painel Admin</div>
+  <div style="display:flex;align-items:center;gap:.75rem">
+    <div class="badge">⚙️ Painel Admin</div>
+    <button onclick="logout()" style="background:transparent;border:1px solid rgba(0,0,0,.2);border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer;color:#1A1A1A">🚪 Sair</button>
+  </div>
 </header>
 
 <div class="main">
@@ -422,6 +425,13 @@ function toast(msg) {
   const t = document.getElementById('toast');
   t.textContent = msg; t.classList.add('show');
   setTimeout(()=>t.classList.remove('show'), 3000);
+}
+
+// ── LOGOUT ───────────────────────────────────────────
+function logout() {
+  fetch('/api/logout', { method: 'POST' }).finally(() => {
+    window.location.href = '/';
+  });
 }
 
 renderAll();

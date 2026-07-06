@@ -27,8 +27,17 @@
   <a class="btn" id="authBtn" href="#">🔑 Autorizar com Mercado Livre</a>
   <div class="status" id="status"></div>
   <p style="margin-top:1.5rem;font-size:12px;color:#999">Esta autorização é necessária apenas uma vez. Seus dados de vendedor não são acessados.</p>
+  <p style="margin-top:1rem">
+    <a href="#" onclick="logout(); return false;" style="font-size:12px;color:#999;text-decoration:underline">🚪 Sair</a>
+  </p>
 </div>
 <script>
+function logout() {
+  fetch('/api/logout', { method: 'POST' }).finally(() => {
+    window.location.href = '/';
+  });
+}
+
 const CLIENT_ID = '558530688805172';
 const REDIRECT = encodeURIComponent('https://www.maisbaratoone.com.br/api/callback');
 const AUTH_URL = `https://auth.mercadolivre.com.br/authorization?response_type=code&client_id=${CLIENT_ID}&redirect_uri=${REDIRECT}`;
