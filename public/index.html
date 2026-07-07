@@ -2,6 +2,17 @@
 <html lang="pt-BR">
 <head>
 <meta charset="UTF-8">
+<!-- Google tag (gtag.js) com Consent Mode: Analytics só coleta após aceite -->
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('consent', 'default', { 'analytics_storage': 'denied' });
+</script>
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-TR8D7YWHCE"></script>
+<script>
+  gtag('js', new Date());
+  gtag('config', 'G-TR8D7YWHCE');
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MaisBarato — Melhores Ofertas do Mercado Livre Hoje</title>
 <meta name="description" content="Encontre as melhores ofertas e produtos mais vendidos do Mercado Livre com frete grátis e parcelamento.">
@@ -71,6 +82,15 @@ header{background:var(--y);position:sticky;top:0;z-index:200;box-shadow:0 2px 8p
 .btn-cp{width:100%;background:var(--gl);color:var(--g);text-align:center;padding:9px;font-size:12px;font-weight:700;cursor:pointer;border:none;border-top:1px solid #c8efd8;transition:background .15s}
 .btn-cp:hover{background:#c0ebd0}
 .share-hint{text-align:center;font-size:11px;color:var(--mu);padding:5px 0 0;background:var(--s)}
+#cookieBanner{position:fixed;left:0;right:0;bottom:0;z-index:999;background:#1A1A1A;color:#fff;padding:1rem 1.25rem;display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:1rem;box-shadow:0 -2px 12px rgba(0,0,0,.2)}
+#cookieBanner p{margin:0;font-size:13px;line-height:1.5;flex:1;min-width:240px}
+#cookieBanner a{color:#FFE600;text-decoration:underline}
+.cookie-actions{display:flex;gap:.6rem;flex-shrink:0}
+.cookie-actions button{border:none;border-radius:8px;padding:.55rem 1.1rem;font-size:13px;font-weight:700;cursor:pointer}
+#cookieAccept{background:#FFE600;color:#1A1A1A}
+#cookieAccept:hover{background:#e6cf00}
+#cookieReject{background:transparent;color:#ccc;border:1px solid #555}
+#cookieReject:hover{background:#2a2a2a}
 .close-btn{background:transparent;border:1.5px solid var(--br);border-radius:20px;padding:5px 14px;font-size:12px;cursor:pointer;color:var(--mu)}
 .disc{margin-top:2.5rem;padding:1.1rem 1.4rem;background:#fff;border-radius:var(--r);border:1px solid var(--br);font-size:12px;color:var(--mu);line-height:1.7}
 .disc strong{color:var(--tm)}
@@ -227,7 +247,7 @@ function buildUI() {
     </div>`);
 
   document.body.insertAdjacentHTML('beforeend',
-    '<footer>MaisBarato · Vitrine de afiliados do Mercado Livre · Conteúdo publicitário</footer>');
+    '<footer>MaisBarato · Vitrine de afiliados do Mercado Livre · Conteúdo publicitário · <a href="/privacidade.html" style="color:inherit;text-decoration:underline">Política de Privacidade</a></footer>');
 }
 
 function switchTab(id) {
@@ -377,6 +397,38 @@ function shareProduct(url, title, btn) {
 function toast(msg){const t=document.getElementById('toast');t.textContent=msg;t.classList.add('show');setTimeout(()=>t.classList.remove('show'),3000);}
 
 loadProducts();
+
+// ── AVISO DE COOKIES (LGPD) ──────────────────────────
+(function cookieConsent() {
+  const KEY = 'mb_cookie_consent';
+  const saved = localStorage.getItem(KEY);
+
+  if (saved === 'accepted') {
+    gtag('consent', 'update', { analytics_storage: 'granted' });
+    return;
+  }
+  if (saved === 'rejected') return; // já recusou, não mostra de novo
+
+  const banner = document.createElement('div');
+  banner.id = 'cookieBanner';
+  banner.innerHTML = `
+    <p>🍪 Usamos cookies para entender como você navega no site (Google Analytics) e melhorar sua experiência. Veja nossa <a href="/privacidade.html">Política de Privacidade</a>.</p>
+    <div class="cookie-actions">
+      <button id="cookieAccept">Aceitar</button>
+      <button id="cookieReject">Recusar</button>
+    </div>`;
+  document.body.appendChild(banner);
+
+  document.getElementById('cookieAccept').onclick = () => {
+    localStorage.setItem(KEY, 'accepted');
+    gtag('consent', 'update', { analytics_storage: 'granted' });
+    banner.remove();
+  };
+  document.getElementById('cookieReject').onclick = () => {
+    localStorage.setItem(KEY, 'rejected');
+    banner.remove();
+  };
+})();
 </script>
 </body>
 </html>
