@@ -100,6 +100,7 @@ h1{font-size:20px;font-weight:700;margin-bottom:1.5rem}
   <div class="info">
     <strong>💡 Como adicionar produtos:</strong>
     <ol>
+      <li>Se este navegador estiver "zerado" (produtos sumiram), clique primeiro em <strong>"⬆️ Importar do site"</strong> para carregar o que já está publicado</li>
       <li>Abra o produto no Mercado Livre e copie a <strong>URL da página</strong></li>
       <li>Clique com botão direito na <strong>foto do produto</strong> → "Copiar endereço da imagem"</li>
       <li>Preencha os campos abaixo e clique em <strong>"Adicionar produto"</strong></li>
@@ -112,6 +113,11 @@ h1{font-size:20px;font-weight:700;margin-bottom:1.5rem}
   <div class="toolbar">
     <p id="totalCount">0 produtos em 10 categorias</p>
     <div class="btns">
+      <button class="btn btn-b" onclick="importFromSite()">⬆️ Importar do site</button>
+      <label class="btn btn-b" style="cursor:pointer">
+        📂 Importar arquivo
+        <input type="file" id="importFile" accept="application/json" style="display:none" onchange="importFromFile(event)">
+      </label>
       <button class="btn btn-y" onclick="exportJSON()">⬇️ Exportar products.json</button>
       <a class="btn btn-b" href="/" target="_blank">🌐 Ver vitrine</a>
       <button class="btn btn-r" onclick="clearAll()">🗑️ Limpar tudo</button>
@@ -398,6 +404,50 @@ function exportJSON() {
   a.href = url; a.download = 'products.json'; a.click();
   URL.revokeObjectURL(url);
   toast('✅ products.json exportado! Faça upload em public/products.json no GitHub');
+}
+
+// ── IMPORTAR ─────────────────────────────────────────
+async function importFromSite() {
+  const total = Object.values(products).reduce((a,b)=>a+b.length,0);
+  if (total > 0 && !confirm('Isso vai substituir os produtos que já estão carregados neste navegador pelos que estão publicados no site. Continuar?')) return;
+
+  try {
+    const res = await fetch('/products.json?v=' + Date.now());
+    if (!res.ok) throw new Error('products.json não encontrado no site (' + res.status + ')');
+    const data = await res.json();
+    products = data || {};
+    saveAndRender();
+    const importedTotal = Object.values(products).reduce((a,b)=>a+b.length,0);
+    toast(`✅ ${importedTotal} produtos importados do site!`);
+  } catch (e) {
+    toast('❌ Erro ao importar: ' + e.message);
+  }
+}
+
+function importFromFile(event) {
+  const file = event.target.files[0];
+  if (!file) return;
+
+  const total = Object.values(products).reduce((a,b)=>a+b.length,0);
+  if (total > 0 && !confirm('Isso vai substituir os produtos que já estão carregados neste navegador pelo conteúdo do arquivo. Continuar?')) {
+    event.target.value = '';
+    return;
+  }
+
+  const reader = new FileReader();
+  reader.onload = (e) => {
+    try {
+      const data = JSON.parse(e.target.result);
+      products = data || {};
+      saveAndRender();
+      const importedTotal = Object.values(products).reduce((a,b)=>a+b.length,0);
+      toast(`✅ ${importedTotal} produtos importados do arquivo!`);
+    } catch (err) {
+      toast('❌ Arquivo inválido: ' + err.message);
+    }
+    event.target.value = '';
+  };
+  reader.readAsText(file);
 }
 
 // ── UTILITÁRIOS ──────────────────────────────────────
