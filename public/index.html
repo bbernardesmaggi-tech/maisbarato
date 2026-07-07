@@ -63,7 +63,16 @@ header{background:var(--y);position:sticky;top:0;z-index:200;box-shadow:0 2px 8p
 .state{text-align:center;padding:3.5rem 1rem;color:var(--mu)}
 .state p{font-size:15px}
 .state .hint{font-size:13px;margin-top:.5rem}
-.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:1rem}
+.carousel{position:relative}
+.carousel-track{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;padding:2px 2px 10px}
+.carousel-track::-webkit-scrollbar{display:none}
+.carousel-track .card{flex:0 0 200px;scroll-snap-align:start}
+.carousel-arrow{position:absolute;top:calc(50% - 18px);width:36px;height:36px;border-radius:50%;background:var(--s);border:1px solid var(--br);box-shadow:var(--shh);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;font-size:18px;line-height:1;color:var(--t);transition:opacity .15s,background .15s}
+.carousel-arrow:hover{background:var(--bg)}
+.carousel-arrow.prev{left:-14px}
+.carousel-arrow.next{right:-14px}
+.carousel-arrow.hidden{display:none}
+@media(max-width:640px){.pill{display:none}.carousel-arrow{display:none}.carousel-track .card{flex:0 0 150px}.price{font-size:15px}.main{padding:1rem}.tab{padding:.7rem .7rem;font-size:12px}}
 .card{background:var(--s);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s}
 .card:hover{box-shadow:var(--shh);transform:translateY(-4px)}
 .card-link{text-decoration:none;color:inherit;display:flex;flex-direction:column;flex:1}
@@ -97,7 +106,7 @@ header{background:var(--y);position:sticky;top:0;z-index:200;box-shadow:0 2px 8p
 footer{text-align:center;padding:2rem 1rem;font-size:12px;color:var(--mu);border-top:1px solid var(--br);margin-top:1.5rem}
 .toast{position:fixed;bottom:28px;left:50%;transform:translateX(-50%) translateY(80px);background:#1A1A1A;color:#fff;padding:11px 22px;border-radius:24px;font-size:13px;font-weight:500;opacity:0;transition:all .25s;z-index:9999;pointer-events:none;white-space:nowrap}
 .toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
-@media(max-width:640px){.pill{display:none}.grid{grid-template-columns:repeat(2,1fr);gap:.65rem}.price{font-size:15px}.main{padding:1rem}.tab{padding:.7rem .7rem;font-size:12px}}
+
 </style>
 </head>
 <body>
@@ -342,8 +351,12 @@ function closeSearch() {
 document.getElementById('si').addEventListener('keydown', e => { if(e.key==='Enter') doSearch(); });
 
 function renderGrid(el, items) {
-  const grid = document.createElement('div');
-  grid.className = 'grid';
+  const wrap = document.createElement('div');
+  wrap.className = 'carousel';
+
+  const track = document.createElement('div');
+  track.className = 'carousel-track';
+
   items.forEach(p => {
     const url = p.permalink;
     const hasDsc = p.original_price && p.original_price > p.price;
@@ -371,13 +384,41 @@ function renderGrid(el, items) {
       </a>
       <p class="share-hint">Curtiu? Manda pra alguém 😉</p>
       <button class="btn-cp" data-url="${esc(url)}" data-title="${esc(p.title)}">📤 Compartilhar produto</button>`;
-    grid.appendChild(art);
+    track.appendChild(art);
   });
+
+  const prevBtn = document.createElement('button');
+  prevBtn.className = 'carousel-arrow prev';
+  prevBtn.setAttribute('aria-label', 'Ver itens anteriores');
+  prevBtn.innerHTML = '‹';
+  prevBtn.onclick = () => track.scrollBy({ left: -track.clientWidth * 0.8, behavior: 'smooth' });
+
+  const nextBtn = document.createElement('button');
+  nextBtn.className = 'carousel-arrow next';
+  nextBtn.setAttribute('aria-label', 'Ver próximos itens');
+  nextBtn.innerHTML = '›';
+  nextBtn.onclick = () => track.scrollBy({ left: track.clientWidth * 0.8, behavior: 'smooth' });
+
+  wrap.appendChild(prevBtn);
+  wrap.appendChild(track);
+  wrap.appendChild(nextBtn);
+
   el.innerHTML = '';
-  el.appendChild(grid);
-  grid.querySelectorAll('.btn-cp').forEach(btn => {
+  el.appendChild(wrap);
+
+  track.querySelectorAll('.btn-cp').forEach(btn => {
     btn.addEventListener('click', () => shareProduct(btn.dataset.url, btn.dataset.title, btn));
   });
+
+  // Mostra as setas só quando há itens escondidos além da borda visível
+  function updateArrows() {
+    const hasOverflow = track.scrollWidth > track.clientWidth + 4;
+    prevBtn.classList.toggle('hidden', !hasOverflow || track.scrollLeft <= 4);
+    nextBtn.classList.toggle('hidden', !hasOverflow || track.scrollLeft >= track.scrollWidth - track.clientWidth - 4);
+  }
+  track.addEventListener('scroll', updateArrows);
+  window.addEventListener('resize', updateArrows);
+  requestAnimationFrame(updateArrows);
 }
 
 function brl(n){return'R$\u00a0'+Number(n).toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2});}
