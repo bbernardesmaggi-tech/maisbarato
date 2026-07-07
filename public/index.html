@@ -34,8 +34,8 @@
 body{font-family:'Segoe UI',system-ui,sans-serif;background:var(--bg);color:var(--t);line-height:1.5}
 header{background:var(--y);position:sticky;top:0;z-index:200;box-shadow:0 2px 8px rgba(0,0,0,.13)}
 .hdr{max-width:1200px;margin:0 auto;display:flex;align-items:center;gap:1rem;height:60px;padding:0 1.5rem}
-.logo{font-size:22px;font-weight:800;letter-spacing:-.5px;color:var(--t);text-decoration:none;flex-shrink:0}
-.logo span{color:var(--b)}
+.logo{display:flex;align-items:center;flex-shrink:0;text-decoration:none}
+.logo img{display:block}
 .sw{flex:1;display:flex;background:#fff;border-radius:8px;overflow:hidden;border:2.5px solid transparent;transition:border .15s;max-width:540px}
 .sw:focus-within{border-color:var(--b)}
 .sw input{flex:1;border:none;outline:none;padding:.5rem .85rem;font-size:14px;color:var(--t);background:transparent}
@@ -67,11 +67,13 @@ header{background:var(--y);position:sticky;top:0;z-index:200;box-shadow:0 2px 8p
 .carousel-track{display:flex;gap:1rem;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none;-ms-overflow-style:none;padding:2px 2px 10px}
 .carousel-track::-webkit-scrollbar{display:none}
 .carousel-track .card{flex:0 0 200px;scroll-snap-align:start}
-.carousel-arrow{position:absolute;top:calc(50% - 18px);width:36px;height:36px;border-radius:50%;background:var(--s);border:1px solid var(--br);box-shadow:var(--shh);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;font-size:18px;line-height:1;color:var(--t);transition:opacity .15s,background .15s}
-.carousel-arrow:hover{background:var(--bg)}
-.carousel-arrow.prev{left:-14px}
-.carousel-arrow.next{right:-14px}
+.carousel-arrow{position:absolute;top:calc(50% - 22px);width:44px;height:44px;border-radius:50%;background:var(--b);border:2px solid #fff;box-shadow:var(--shh);display:flex;align-items:center;justify-content:center;cursor:pointer;z-index:5;color:#fff;transition:background .15s,transform .15s}
+.carousel-arrow svg{width:22px;height:22px}
+.carousel-arrow:hover{background:var(--bd);transform:scale(1.06)}
+.carousel-arrow.prev{left:-18px}
+.carousel-arrow.next{right:-18px}
 .carousel-arrow.hidden{display:none}
+@media(max-width:900px){.carousel-arrow.prev{left:4px}.carousel-arrow.next{right:4px}}
 @media(max-width:640px){.pill{display:none}.carousel-arrow{display:none}.carousel-track .card{flex:0 0 150px}.price{font-size:15px}.main{padding:1rem}.tab{padding:.7rem .7rem;font-size:12px}}
 .card{background:var(--s);border-radius:var(--r);box-shadow:var(--sh);overflow:hidden;display:flex;flex-direction:column;transition:box-shadow .18s,transform .18s}
 .card:hover{box-shadow:var(--shh);transform:translateY(-4px)}
@@ -112,7 +114,7 @@ footer{text-align:center;padding:2rem 1rem;font-size:12px;color:var(--mu);border
 <body>
 <header>
   <div class="hdr">
-    <a class="logo" href="/">Mais<span>Barato</span></a>
+    <a class="logo" href="/"><img src="/logo.svg" alt="MaisBarato" height="34"></a>
     <div class="sw">
       <input type="text" id="si" placeholder="Buscar produto..." aria-label="Buscar produto">
       <button onclick="doSearch()" aria-label="Buscar">&#128269;</button>
@@ -390,13 +392,13 @@ function renderGrid(el, items) {
   const prevBtn = document.createElement('button');
   prevBtn.className = 'carousel-arrow prev';
   prevBtn.setAttribute('aria-label', 'Ver itens anteriores');
-  prevBtn.innerHTML = '‹';
+  prevBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="15 18 9 12 15 6"></polyline></svg>';
   prevBtn.onclick = () => track.scrollBy({ left: -track.clientWidth * 0.8, behavior: 'smooth' });
 
   const nextBtn = document.createElement('button');
   nextBtn.className = 'carousel-arrow next';
   nextBtn.setAttribute('aria-label', 'Ver próximos itens');
-  nextBtn.innerHTML = '›';
+  nextBtn.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="9 18 15 12 9 6"></polyline></svg>';
   nextBtn.onclick = () => track.scrollBy({ left: track.clientWidth * 0.8, behavior: 'smooth' });
 
   wrap.appendChild(prevBtn);
